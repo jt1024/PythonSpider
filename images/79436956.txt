@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <link rel="canonical" href="https://blog.csdn.net/jiangwei0910410003/article/details/79436956"/> 
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="referrer" content="always">
+    <meta name="description" content="一、知识回顾
+
+最近有人找我弄微信数据库解密的东西，其实这个现在网上都公开了，我在很早之前就静态分析过微信数据库加密算法，不了解的同学可以查看这里：Android中静态方式破解微信数据库加密密码，所以现在有人找我的话我都会告诉他们这个内容，微信数据库加密的密码很简单就是：MD5(IMEI+UIN).Substring(0, 7).toLower；设备的imei和微信登录账号后的唯一表示uin值拼接..." />
+    <meta name="keywords" content="" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+    <meta name="shenma-site-verification" content="5a59773ab8077d4a62bf469ab966a63b_1497598848">
+    <script src="https://csdnimg.cn/release/phoenix/vendor/tingyun/tingyun-rum-blog.js"></script>
+
+    <link href="https://csdnimg.cn/public/favicon.ico" rel="SHORTCUT ICON">
+    <title>微信数据库最新的解密方式，C++代码解密微信数据库信息！ - CSDN博客</title>
+    
+            <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/detail-850e001537.min.css">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/themes/skin-yellow/skin-yellow-2eefd34acf.min.css">
+
+    <script type="text/javascript">
+        var username = "jiangwei0910410003";
+        var blog_address = "https://blog.csdn.net/jiangwei0910410003";
+        var static_host = "https://csdnimg.cn/release/phoenix/";
+        var currentUserName = ""; 
+        var isShowAds = true;
+        var isOwner = false;
+        var loginUrl = "https://passport.csdn.net/account/login?from=https://blog.csdn.net/jiangwei0910410003/article/details/79436956"
+        var blogUrl = "https://blog.csdn.net/";
+        //页面皮肤样式
+        var curSkin = "skin-yellow";
+    </script>
+    <script type="text/javascript">
+        // Traffic Stats of the entire Web site By baidu
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?6bcd52f51e9b3dce32bec4a3997715ac";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+        // Traffic Stats of the entire Web site By baidu end
+    </script>
+    <script src="https://csdnimg.cn/public/common/libs/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="https://csdnimg.cn/rabbit/exposure-click/main-1.0.6.js"></script>
+    <!-- 新版上报 -->
+    <script src="//g.csdnimg.cn/track/1.0.1/track.js" type="text/javascript"></script>
+    <!-- 新版上报end -->
+            <link rel="stylesheet" href="https://csdnimg.cn/public/sandalstrap/1.3/css/sandalstrap.min.css"> 
+    <style>
+        .MathJax, .MathJax_Message, .MathJax_Preview{
+            display: none
+        }
+    </style>
+</head>
+<body>    
+    <link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+    <script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+<script type="text/javascript" src="//static.mediav.com/js/mvf_news_feed.js"></script>
+<div style="display:none;">
+	<img src="" onerror='setTimeout(function(){if(!/(csdn.net|iteye.com|baiducontent.com|googleusercontent.com|360webcache.com|sogoucdn.com|bingj.com|baidu.com)$/.test(window.location.hostname)){window.location.href="\x68\x74\x74\x70\x73\x3a\x2f\x2f\x77\x77\x77\x2e\x63\x73\x64\x6e\x2e\x6e\x65\x74"}},3000);'>
+</div>
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/chart-3456820cac.css" />
+
+
+
+<script src="https://dup.baidustatic.com/js/ds.js"></script>
+<div class="container clearfix" id="mainBox">
+		<!-- <div id="breadcrumbs">
+			<span><a href="https://blog.csdn.net/">博客首页</a></span>
+			<i>></i>
+			<span><a href="https://blog.csdn.net/jiangwei0910410003">Android应用安全防护和逆...</a></span>
+			<i>></i>
+			<span>微信数据库最新的解密方式，C++代码解密微信数据库信息！...</span>
+		</div> -->
+    <main>
+        <div class="blog-content-box">
+	<div class="article-header-box">
+		<div class="article-header">
+			<div class="article-title-box">
+				<span class="article-type type-1 float-left">原</span>				<h1 class="title-article">微信数据库最新的解密方式，C++代码解密微信数据库信息！</h1>
+			</div>
+			<div class="article-info-box">
+				<div class="article-bar-top d-flex">
+																				<span class="time">2018年08月06日 11:54:23</span>
+					<div class="float-right">
+						<span class="read-count">阅读数：1510</span>
+																	</div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	<article>
+		<div id="article_content" class="article_content clearfix csdn-tracking-statistics" data-pid="blog"  data-mod=popu_307  data-dsm = "post" >
+                    <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/ck_htmledit_views-e2445db1a8.css" />
+						<div class="htmledit_views">
+                <h2>一、知识回顾</h2>
+
+<p>最近有人找我弄微信数据库解密的东西，其实这个现在网上都公开了，我在很早之前就静态分析过微信数据库加密算法，不了解的同学可以查看这里：<a href="http://www.wjdiankong.cn/android%E9%80%86%E5%90%91%E4%B9%8B%E6%97%85-%E9%9D%99%E6%80%81%E6%96%B9%E5%BC%8F%E7%A0%B4%E8%A7%A3%E5%BE%AE%E4%BF%A1%E8%8E%B7%E5%8F%96%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E5%92%8C%E9%80%9A%E8%AE%AF/" rel="nofollow">Android中静态方式破解微信数据库加密密码</a>，所以现在有人找我的话我都会告诉他们这个内容，微信数据库加密的密码很简单就是：<strong>MD5(IMEI+UIN).Substring(0, 7).toLower</strong>；设备的imei和微信登录账号后的唯一表示uin值拼接然后计算MD5值，取前7位在变成小写字母即可。这个我在那篇文章最后也说到了，这个加密算法不会变化的，因为维系为了兼容以前版本，如果数据库加密算法变动，那么老版本的用户升级到新版本，老版本的数据库解密就会失败，也就是用户看不到以前的消息内容了，这个用户会疯的，所以微信即使知道了这个算法被破解了，他也是没办法升级的，所以现在不会变，以后也不会变的。但是比较奇葩的是他按照我的文章操作计算出来的密码还是不可以。所以我就让他把我的数据库文件传给我我来解密，中间其实我遇到了问题最后才知道被微信转码坑了，因为他微信把IMEI和UIN传递给我了，结果我直接复制计算MD5是错的，最后才知道微信消息中有转码的。</p>
+
+<p> </p>
+
+<h2>二、获取解密密码</h2>
+
+<p>所以开始就计算错误，他一度怀疑微信的加密算法是不是变化了，但是这一点我还是坚信微信不可能换加密算法的，这个原因我之前也说了，对于微信来说几乎是不可能操作的。然后他就在网上搜找到一个收费的PC端工具，大致是这样的：</p>
+
+<p><img alt="" class="has" src="https://fourbrother-img-1252178963.cos.ap-beijing.myqcloud.com/%E6%96%87%E7%AB%A0%E5%9B%BE%E7%89%87/%E5%BE%AE%E4%BF%A1%E6%95%B0%E6%8D%AE%E5%BA%93%E7%A0%B4%E8%A7%A3/1.png" /></p>
+
+<p>只需要选择微信的数据库目录MicroMsg即可，就可以识别出来用户，然后点击指定用户就可以查看对应的数据了，所以他这么一说我倒是有点怀疑我的方法了？因为毕竟他用这个工具解密是没有问题的。所以我就用这个工具查看了一下的确没问题，那么为什么这个工具可以解密成功呢？所以我就想探究这个工具的原理，但是我不会PC端的软件逆向，但是我们可以借助强大的逻辑排除法定位，你看这个工具是需要选择微信数据库目录的，也就是这样的格式：</p>
+
+<p><img alt="" class="has" src="https://fourbrother-img-1252178963.cos.ap-beijing.myqcloud.com/%E6%96%87%E7%AB%A0%E5%9B%BE%E7%89%87/%E5%BE%AE%E4%BF%A1%E6%95%B0%E6%8D%AE%E5%BA%93%E7%A0%B4%E8%A7%A3/2.png" /></p>
+
+<p>我就好奇了，我们在之前的文章中了解到用忽的UIN是存储在xml中的，但是你看这个工具只要导入这个目录就可以解密，也就是说他能够拿到设备imei和uin值，所以我就怀疑他读取这个目录下的几个文件获取的，那么就一个一个排除，首先通过肉眼判断哪些文件肯定不是的，最后发现就这几个cfg文件打开是二进制文件，所以怀疑对象就在这几个文件了，因为文件不多，我们可以这么排除，就是通过逐一修改文件名，然后在用那个工具解密，如果提示错误了，那么就表示这个文件是关键的，通过最后排查，有两个文件不能修改，也就是上图中文件名后面没有11的两个，一个是systemInfo.cfg和CompatibleInfo.cfg了。那么这个文件是二进制文件，怎么解密呢？这个就简单了，直接用Jadx全局搜这两个文件：</p>
+
+<p><img alt="" class="has" src="https://fourbrother-img-1252178963.cos.ap-beijing.myqcloud.com/%E6%96%87%E7%AB%A0%E5%9B%BE%E7%89%87/%E5%BE%AE%E4%BF%A1%E6%95%B0%E6%8D%AE%E5%BA%93%E7%A0%B4%E8%A7%A3/3.png" /></p>
+
+<p>运气很好，正好在第一个dex中就搜到了，点进去查看：</p>
+
+<p><img alt="" class="has" src="https://fourbrother-img-1252178963.cos.ap-beijing.myqcloud.com/%E6%96%87%E7%AB%A0%E5%9B%BE%E7%89%87/%E5%BE%AE%E4%BF%A1%E6%95%B0%E6%8D%AE%E5%BA%93%E7%A0%B4%E8%A7%A3/4.png" /></p>
+
+<p>继续点进去查看：</p>
+
+<p><img alt="" class="has" src="https://fourbrother-img-1252178963.cos.ap-beijing.myqcloud.com/%E6%96%87%E7%AB%A0%E5%9B%BE%E7%89%87/%E5%BE%AE%E4%BF%A1%E6%95%B0%E6%8D%AE%E5%BA%93%E7%A0%B4%E8%A7%A3/5.png" /></p>
+
+<p>到这里就看明白了，原来不是什么加密操作，而是序列化对象到文件中，那么想看这个文件的原始内容就简单了，我们去写一个Java程序把文件中的内容读取出来是Map结果，然后把所有的key和value打印看看结果：</p>
+
+<p><img alt="" class="has" src="https://fourbrother-img-1252178963.cos.ap-beijing.myqcloud.com/%E6%96%87%E7%AB%A0%E5%9B%BE%E7%89%87/%E5%BE%AE%E4%BF%A1%E6%95%B0%E6%8D%AE%E5%BA%93%E7%A0%B4%E8%A7%A3/6.png" /></p>
+
+<p>运行看看结果：</p>
+
+<p><img alt="" class="has" src="https://fourbrother-img-1252178963.cos.ap-beijing.myqcloud.com/%E6%96%87%E7%AB%A0%E5%9B%BE%E7%89%87/%E5%BE%AE%E4%BF%A1%E6%95%B0%E6%8D%AE%E5%BA%93%E7%A0%B4%E8%A7%A3/7.png" /></p>
+
+<p>因为之前他在微信上把他的uin和imei发给我了，所以我一眼就看到了这里有他的imei和uin值，也就是说那个工具的确是通过这两个序列化文件来获取imei值和uin值然后计算密码的，所以我再一次相信他也是用MD5计算那个密码的，所以这时候我就不用他发给我的那个信息了，我就从这里打印的结果直接计算结果，然后在用sqlcipher.exe工具直接查看，竟然解开了：</p>
+
+<p><img alt="" class="has" src="https://fourbrother-img-1252178963.cos.ap-beijing.myqcloud.com/%E6%96%87%E7%AB%A0%E5%9B%BE%E7%89%87/%E5%BE%AE%E4%BF%A1%E6%95%B0%E6%8D%AE%E5%BA%93%E7%A0%B4%E8%A7%A3/8.png" /></p>
+
+<p>所以再一次确认了微信的数据库加密算法没有变化，那为什么他还是没解开呢？因为最后也确认了他和我计算的密码是一样的？那么我就要怀疑他使用的sqlcipher.exe工具了，最后果然是工具出了问题，我把我发给他的工具就可以用了。所以这个过程我被他微信发给我的信息坑了，他被解密数据的工具坑了。不过不管怎么样都成功了。所以以后如果你在操作微信解密失败问题，一定不要怀疑微信算法变了，不可能变的。如果有错误可能这些原因：</p>
+
+<p><strong>第一、现在很多设备都有很多个imei值，一般是两个，所以如果一个失败了，就尝试第二个。因为你不知道微信获取的是哪个imei值。</strong></p>
+
+<p><strong>第二、获取imei值我们会用简单的拨号和设置中进行查看，这里我用小米 4+6.0系统验证发现这两种方式查看的值是不一样的，而拨号的方式是正确的。</strong></p>
+
+<p><strong>第三、就是有的同学imei和uin值都获取对了，但是计算MD5和全是字母小写这一点弄错了，也要注意。</strong></p>
+
+<p>如果以上都没有问题，那么还是解密失败，就请怀疑你使用给的sqlcipher.exe工具吧，不过没关系了，从现在开始我要带你们开发这个工具，以后只要用我的工具就可以了。</p>
+
+<p> </p>
+
+<h2>三、C++代码解密数据库</h2>
+
+<p>那么到这里本文就算结束了吗？本来是结束了，因为帮他搞定了解密，但是我就去看了那个工具，发现他查看消息和其他功能都是收费的，这我就不答应了，这么简单的功能还收费，我就喜欢做免费的东西，所以在那一刻之后我决定了自己开发这个工具，功能和他都是差不多，只需要导入MicroMsg目录就可以预览信息了。那么在写这个工具之前，我们不用C++来编写界面，因为我不会，我只会用Java写界面，但是SQLCipher官网中没有Java中可以使用的jar功能，但是我们在之前的文章已经在VS中用C++实践成功了，所以我们可以用Java开发JNI来调用dll文件，把解密工作放到C++中做，数据展示放到Java层做这样就没问题了。其实主要还是我不会C++的图形化开发，我也不想去折腾学习了，因为我觉得价值不是很大。而且用Java做我们可以回顾JNI开发知识也是一件很好的事情。</p>
+
+<p>那么不多说了，先来解决第一件事就是利用之前的文章说的<a href="https://blog.csdn.net/jiangwei0910410003/article/details/79435074" rel="nofollow">SQLCipher代码来解密微信数据库</a>看看能否成功，代码修改很简单，直接把我们计算的密码替换一下，然后把微信的加密数据库EnMicroMsg.db放到工程目录下，运行即可：</p>
+
+<p><img alt="" class="has" src="https://fourbrother-img-1252178963.cos.ap-beijing.myqcloud.com/%E6%96%87%E7%AB%A0%E5%9B%BE%E7%89%87/%E5%BE%AE%E4%BF%A1%E6%95%B0%E6%8D%AE%E5%BA%93%E7%A0%B4%E8%A7%A3/9.png" /></p>
+
+<p>可惜的是运行代码提示数据库加密了，也就是我们解密数据库失败了，但是我们用sqlcipher.exe工具查看都没有问题，所以这里的密码是没有问题的，但是哪里出问题呢？代码也是没问题，因为我们之前写的demo都没有问题，所以就怀疑微信的数据库加密做了一些其他设置，我们可能还需要设置一些东西，就跑去SQLCipher官网查看api：</p>
+
+<p><img alt="" class="has" src="https://fourbrother-img-1252178963.cos.ap-beijing.myqcloud.com/%E6%96%87%E7%AB%A0%E5%9B%BE%E7%89%87/%E5%BE%AE%E4%BF%A1%E6%95%B0%E6%8D%AE%E5%BA%93%E7%A0%B4%E8%A7%A3/10.png" /></p>
+
+<p>然后找到这些内容，就尝试执行这些命令：</p>
+
+<p><img alt="" class="has" src="https://fourbrother-img-1252178963.cos.ap-beijing.myqcloud.com/%E6%96%87%E7%AB%A0%E5%9B%BE%E7%89%87/%E5%BE%AE%E4%BF%A1%E6%95%B0%E6%8D%AE%E5%BA%93%E7%A0%B4%E8%A7%A3/11.png" /></p>
+
+<p>然后在执行程序：</p>
+
+<p><img alt="" class="has" src="https://fourbrother-img-1252178963.cos.ap-beijing.myqcloud.com/%E6%96%87%E7%AB%A0%E5%9B%BE%E7%89%87/%E5%BE%AE%E4%BF%A1%E6%95%B0%E6%8D%AE%E5%BA%93%E7%A0%B4%E8%A7%A3/12.png" /></p>
+
+<p>这样就成功了，把userinfo数据表中的数据都成功打印出来了，到这里本文的内容就结束了，后面还有一篇文章介绍如何利用JNI把C++层的解密数据传递到Java层中进行展示，以及如何开发出工具。因为篇幅过长，本文就不在继续讲解了。</p>
+
+<p> </p>
+
+<p>那么看完本文之后，了解到微信中会把uin值和imei值序列化到cfg文件中，所以从这里看到我们的确只需要MicroMsg目录就可以进行解密操作了，但是我也发现</p>
+
+<p><img alt="" class="has" src="https://img-blog.csdn.net/20180304164554879" /></p>
+
+<p>加密数据库都放在这种类似于md5文件夹下面，所以我们为了后面更好的操作，所以我们要搞清楚这个文件夹名字怎么来的，这个比较简单，再去dex文件中跟踪即可：</p>
+
+<p><img alt="" class="has" src="https://fourbrother-img-1252178963.cos.ap-beijing.myqcloud.com/%E6%96%87%E7%AB%A0%E5%9B%BE%E7%89%87/%E5%BE%AE%E4%BF%A1%E6%95%B0%E6%8D%AE%E5%BA%93%E7%A0%B4%E8%A7%A3/14.png" /></p>
+
+<p>点进去查看跟踪可以看到，这里其实我不想说了，因为我之前在网上看到其他人说了，这个文件夹的算法就是：<strong>MD5("mm"+uin).toLower</strong> 即可。所以我就直接告诉大家了。</p>
+
+<p>当然因为现在微信作为最常用的聊天通信工具，很多人的聊天信息都保存了，当然微信官方说好了不会上传用户的聊天记录，所以有时候当我们无意中丢失了和朋友之间的聊天记录在找回来很麻烦了，比如手机摔坏了想找回聊天记录怎么办？这时候我们可以这么做吧手机的内存卡卸载下来，这一步一般如果不是一个喜欢动手的同学可以去找专业人员操作：</p>
+
+<p><img alt="" class="has" src="https://fourbrother-img-1252178963.cos.ap-beijing.myqcloud.com/%E6%96%87%E7%AB%A0%E5%9B%BE%E7%89%87/%E5%BE%AE%E4%BF%A1%E6%95%B0%E6%8D%AE%E5%BA%93%E7%A0%B4%E8%A7%A3/15.png" /></p>
+
+<p>卸载下来之后直接可以用电脑访问，这时候看到就是有root身份直接访问微信的沙盒数据，然后直接用这种解密方式就可以找回微信信息进行保存即可。当然如果你在大马路上无意中捡到一部手机的话，如果无法解锁找到失主，最好的方式是交给JC叔叔，当然你可以还有其他办法找到失主，这里不方便多说，当然也有现在很多JC叔叔破案可以通过手机中的微信聊天记录找到线索，如果有了犯罪分子的手机可以通过这种方式进行操作。</p>
+
+<p> </p>
+
+<p><strong><span style="color:#ff0000;">本文涉及到的代码项目可以去编码美丽小密圈自取，欢迎加入小密圈一起学习探讨技术</span></strong></p>
+
+<p><img alt="" class="has" src="https://img-blog.csdn.net/20180304145002520" /></p>
+
+<p> </p>
+
+<h2>四、总结</h2>
+
+<p>本文的内容就介绍完了，主要是利用C++代码解密微信数据库内容，只要这一步成功了，后续的工具就是把数据展示出来即可，这个是下一篇文章的内容了，敬请期待。</p>
+
+<p> </p>
+
+<h1><span style="color:#f33b45;">《Android应用安全防护和逆向分析》</span></h1>
+
+<h1><a name="t4"></a>点击立即购买：<a href="https://item.jd.com/12271376.html" rel="nofollow">京东</a>  <a href="https://detail.tmall.com/item.htm?id=561791430421" rel="nofollow">天猫  </a></h1>
+
+<p><img alt="" class="has" src="https://img-blog.csdn.net/20171218164959450" /></p>
+
+<p><strong>更多内容：<a href="http://www.wjdiankong.cn/" rel="nofollow">点击这里</a></strong></p>
+
+<p><strong>关注<a href="http://lib.csdn.net/base/wechat" rel="nofollow">微信</a>公众号，最新技术干货实时推送</strong></p>
+
+<p><img alt="" class="has" src="https://img-blog.csdn.net/20160822091821005?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" /></p>            </div>
+                </div>
+				<div class="hide-article-box text-center">
+			<a class="btn btn-red-hollow" id="btn-readmore" data-track-view='{"mod":"popu_376","con":",https://blog.csdn.net/jiangwei0910410003/article/details/79436956,"}' data-track-click='{"mod":"popu_376","con":",https://blog.csdn.net/jiangwei0910410003/article/details/79436956,"}'>阅读更多</a>
+		</div>
+        	</article>
+	
+<div class="answer-box">
+  <a id="chatqa"></a>
+  <div class="img-qrcode-box">
+    <img src="http://images.gitbook.cn/b539f451-58b1-11e8-bb78-255eb175bac3" alt="">
+    <p>扫码向博主提问</p>
+  </div>
+  <button class="btn answer-btn-close">
+      <svg class="icon" aria-hidden="true">
+          <use xlink:href="#csdnc-times"></use>
+      </svg>
+  </button>
+  <div class="content-box  d-flex flex-column justify-content-center">
+    <div class="info-box d-flex">
+      <img src="https://avatar.csdn.net/7/1/0/3_jiangwei0910410003.jpg" alt="" class="avatar-pic">
+      <p class="name d-flex align-items-center usernick">尼古拉斯_赵四</p>
+            <p class="flag d-flex align-items-center">
+          <svg class="icon" aria-hidden="true">
+              <use xlink:href="#csdnc-blogexpert"></use>
+          </svg>
+          博客专家
+      </p>
+          </div>
+    <div class="remark text-truncate">
+      非学，无以致疑；非问，无以广识    </div>
+      </div>
+      <a href="https://mp.csdn.net/ask" class="btn btn-sm btn-link-blue btn-op-answer" target="_blank">去开通我的Chat快问</a>
+  </div>
+
+		<div class="article-bar-bottom">
+				<div class="article-copyright">
+			版权声明：本文为博主原创文章，未经博主允许不得转载。			https://blog.csdn.net/jiangwei0910410003/article/details/79436956		</div>
+												<div class="tags-box hot-word">
+			<span class="label">相关热词：</span>
+						<a class="tag-link" href="https://blog.csdn.net/mars_xiaolei/article/details/73295341" target="_blank">
+			vs2017光标			</a>
+						<a class="tag-link" href="https://blog.csdn.net/yanchezuo/article/details/78728698" target="_blank">
+			vs2017花屏			</a>
+						<a class="tag-link" href="https://blog.csdn.net/shichuwu/article/details/80144071" target="_blank">
+			vs2017锁定			</a>
+						<a class="tag-link" href="https://blog.csdn.net/kangluo1/article/details/78444764" target="_blank">
+			vs2017格式			</a>
+						<a class="tag-link" href="https://blog.csdn.net/bian1029/article/details/50812550" target="_blank">
+			vs2017恢复			</a>
+					</div>
+			</div>
+			<!-- !empty($pre_next_article[0]) -->
+						<div class="related-article related-article-prev text-truncate">
+			<a href="https://blog.csdn.net/jiangwei0910410003/article/details/79435074">
+				<span>上一篇</span>VS2017工具用C++编译SQLite数据库和使用以及如何使用加密数据库SQLCipher			</a>
+		</div>
+								<div class="related-article related-article-next text-truncate">
+			<a href="https://blog.csdn.net/jiangwei0910410003/article/details/79820040">
+				<span>下一篇</span>Android逆向之旅---爆破一款资讯类应用「最右」防抓包策略原理分析			</a>
+		</div>
+		</div>
+<script>
+    $(".MathJax").remove();
+</script>
+
+<!-- 博客详情页PC增加广告系统刷量代码 -->
+<div id="a52b5334d" style="width: 1px; height: 1px; display: none;">
+<script id="adJs52b5334"></script>
+<script>document.getElementById("adJs52b5334").src = "https://ads.csdn.net/js/opt/52b5334.js?t=" + Math.random();</script>
+</div>
+
+<script>
+	(function(){
+		var btnReadmore = $("#btn-readmore");
+		if(btnReadmore.length>0){
+			var winH = $(window).height();
+			var articleBox = $("div.article_content");
+			var artH = articleBox.height();
+			if(artH > winH*2){
+				articleBox.css({
+					'height':winH*2+'px',
+					'overflow':'hidden'
+				})
+				btnReadmore.click(function(){
+					articleBox.removeAttr("style");
+					$(this).parent().remove();
+				})
+			}else{
+				btnReadmore.parent().remove();
+			}
+		}
+	})()
+</script>
+        <div data-track-view='{"mod":"popu_625","con": ",https://blog.csdn.net/jiangwei0910410003/article/details/79436956,from_360"}' style="margin-top: 8px;padding: 20px;background-color: #fff;overflow: hidden;" id="adt0"></div>
+            <script>
+                var adWidth = $("div.blog-content-box").outerWidth() - 40;
+                NEWS_FEED({
+                    w: adWidth,
+                    h : 130,
+                    showid : "s02a31",
+                    placeholderId: "adt0",
+                    inject : "define",
+                    define : {
+                    imagePosition : "left",
+                    imageBorderRadius : 0,
+                    imageWidth: 231,
+                    imageHeight: 130,
+                    imageFill : "clip",
+                    displayImage : true,
+                    displayTitle : true,
+                    titleFontSize: 20,
+                    titleFontColor: "#333",
+                    titleFontFamily : "Microsoft Yahei",
+                    titleFontWeight: "bold",
+                    titlePaddingTop : 0,
+                    titlePaddingRight : 0,
+                    titlePaddingBottom : 10,
+                    titlePaddingLeft : 16,
+                    displayDesc : true,
+                    descFontSize: 14,
+                    descFontColor: "#6b6b6b",
+                    descFontFamily : "Microsoft Yahei",
+                    paddingTop : 0,
+                    paddingRight : 0,
+                    paddingBottom : 0,
+                    paddingLeft : 0,
+                    backgroundColor: "#fff",
+                    hoverColor: "#ca0c16"
+                    }
+                })
+            </script>        <a id="commentBox"></a>
+<div class="comment-box">
+	  	<div class="unlogin-box text-center">
+		想对作者说点什么？
+		<!-- $curl 当前地址 -->
+		<a href="https://passport.csdn.net/account/login?from=https://blog.csdn.net/jiangwei0910410003/article/details/79436956#commentBox" class="btn btn-sm btn-red">我来说一句</a>
+	</div>
+			<div class="comment-list-container">
+		<a id="comments"></a>
+		<div class="comment-list-box">
+		</div>
+		<div id="commentPage" class="pagination-box d-none"></div>
+		<div class="opt-box text-center">
+			<button class="btn btn-sm btn-link-blue" id="btnMoreComment"></button>
+		</div>
+	</div>
+</div>        <div class="recommend-box">
+            		<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_614","con":",https://blog.csdn.net/wzy901213/article/details/79975985,BlogCommendFromQuerySearch_0"}' data-track-click='{"mod":"popu_614","con":",https://blog.csdn.net/wzy901213/article/details/79975985,BlogCommendFromQuerySearch_0"}'>
+		<div class="content">
+			<h4 class="text-truncate oneline">
+				<a href="https://blog.csdn.net/wzy901213/article/details/79975985" target="_blank" title="<em>微信</em><em>数据库</em><em>解密</em>">
+					<em>微信</em><em>数据库</em><em>解密</em>				</a>
+			</h4>
+			<div class="info-box d-flex align-content-center">
+				<p>
+					<a class="avatar" src="https://blog.csdn.net/wzy901213" target="_blank">
+						<img src="https://avatar.csdn.net/3/B/1/3_wzy901213.jpg" alt="wzy901213" class="avatar-pic">
+						<span class="namebox">
+							<span class="name">wzy901213</span>
+							<span class="triangle"></span>
+						</span>
+					</a>
+				</p>
+				<p class="date-and-readNum">
+					<span class="date hover-show">04-17</span>
+					<span class="read-num hover-hide">
+						<svg class="icon csdnc-yuedushu" aria-hidden="true">
+							<use xlink:href="#csdnc-yuedushu"></use>
+						</svg>
+						101</span>
+					</p>
+				</div>
+				<p class="content oneline">
+					<a class="oneline" href="https://blog.csdn.net/wzy901213/article/details/79975985" target="_blank" >
+						最近在公司接了一个任务，需要在几百台手机上安装一个app，目的是获取微信里面的通讯录，并且定时的把他发送到我们的服务器上。当时依次尝试的如下几个方案：
+
+  1.通过群控，将好友截图发送到服务端（...					</a>
+				</p>
+		</div>
+						<div class="img-box float-left">
+				<a href="https://blog.csdn.net/wzy901213/article/details/79975985">
+					<img src="https://csdnimg.cn/release/phoenix/article_rand_pic/mobile/mobile26.jpg" alt="">	
+				</a>
+			</div>
+			</div>
+					<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_614","con":",https://blog.csdn.net/foreverhuylee/article/details/52180259,BlogCommendFromQuerySearch_1"}' data-track-click='{"mod":"popu_614","con":",https://blog.csdn.net/foreverhuylee/article/details/52180259,BlogCommendFromQuerySearch_1"}'>
+		<div class="content">
+			<h4 class="text-truncate oneline">
+				<a href="https://blog.csdn.net/foreverhuylee/article/details/52180259" target="_blank" title="如何破解<em>微信</em>加密<em>数据库</em>EnMicroMsg.db读取聊天消息">
+					如何破解<em>微信</em>加密<em>数据库</em>EnMicroMsg.db读取聊天消息				</a>
+			</h4>
+			<div class="info-box d-flex align-content-center">
+				<p>
+					<a class="avatar" src="https://blog.csdn.net/foreverhuylee" target="_blank">
+						<img src="https://avatar.csdn.net/F/E/F/3_foreverhuylee.jpg" alt="foreverhuylee" class="avatar-pic">
+						<span class="namebox">
+							<span class="name">foreverhuylee</span>
+							<span class="triangle"></span>
+						</span>
+					</a>
+				</p>
+				<p class="date-and-readNum">
+					<span class="date hover-show">08-11</span>
+					<span class="read-num hover-hide">
+						<svg class="icon csdnc-yuedushu" aria-hidden="true">
+							<use xlink:href="#csdnc-yuedushu"></use>
+						</svg>
+						2.9万</span>
+					</p>
+				</div>
+				<p class="content oneline">
+					<a class="oneline" href="https://blog.csdn.net/foreverhuylee/article/details/52180259" target="_blank" >
+						如何查看别人手机中的微信聊天记录呢？微信作为最常用的聊天软件，其聊天信息已经经过了加密，要想查看别人用微信进行聊天的记录，就需要按以下步骤来操作，以下是具体的操作方法。
+ 
+第一步：获取Root权限
+...					</a>
+				</p>
+		</div>
+				</div>
+									<!-- 第四范式广告开关 -->
+				<div class="p4courset3_target _4paradigm_box recommend-item-box clearfix" ></div>
+				<script>window.p4sdk_enable_recommendBox=true</script>
+			
+				<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_614","con":",https://blog.csdn.net/qq_30548105/article/details/72676245,BlogCommendFromQuerySearch_2"}' data-track-click='{"mod":"popu_614","con":",https://blog.csdn.net/qq_30548105/article/details/72676245,BlogCommendFromQuerySearch_2"}'>
+		<div class="content">
+			<h4 class="text-truncate oneline">
+				<a href="https://blog.csdn.net/qq_30548105/article/details/72676245" target="_blank" title="手把手教你破解<em>微信</em>本地<em>数据库</em>(利用Sqlcipher查看)">
+					手把手教你破解<em>微信</em>本地<em>数据库</em>(利用Sqlcipher查看)				</a>
+			</h4>
+			<div class="info-box d-flex align-content-center">
+				<p>
+					<a class="avatar" src="https://blog.csdn.net/qq_30548105" target="_blank">
+						<img src="https://avatar.csdn.net/3/6/6/3_qq_30548105.jpg" alt="qq_30548105" class="avatar-pic">
+						<span class="namebox">
+							<span class="name">qq_30548105</span>
+							<span class="triangle"></span>
+						</span>
+					</a>
+				</p>
+				<p class="date-and-readNum">
+					<span class="date hover-show">05-24</span>
+					<span class="read-num hover-hide">
+						<svg class="icon csdnc-yuedushu" aria-hidden="true">
+							<use xlink:href="#csdnc-yuedushu"></use>
+						</svg>
+						1.4万</span>
+					</p>
+				</div>
+				<p class="content oneline">
+					<a class="oneline" href="https://blog.csdn.net/qq_30548105/article/details/72676245" target="_blank" >
+						最近一直在研究Xposed等一些hook框架，进行学习做一些demo，这次就正好拿微信练练手，学习学习，也可以学习微信手机本地数据库的表结构设计等。
+
+好，废话不多说，直接开干。
+前提是你的电脑已经安...					</a>
+				</p>
+		</div>
+				</div>
+					<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_614","con":",https://blog.csdn.net/tianyeming/article/details/79442051,BlogCommendFromQuerySearch_3"}' data-track-click='{"mod":"popu_614","con":",https://blog.csdn.net/tianyeming/article/details/79442051,BlogCommendFromQuerySearch_3"}'>
+		<div class="content">
+			<h4 class="text-truncate oneline">
+				<a href="https://blog.csdn.net/tianyeming/article/details/79442051" target="_blank" title="<em>解密</em><em>微信</em><em>数据库</em>文件解析">
+					<em>解密</em><em>微信</em><em>数据库</em>文件解析				</a>
+			</h4>
+			<div class="info-box d-flex align-content-center">
+				<p>
+					<a class="avatar" src="https://blog.csdn.net/tianyeming" target="_blank">
+						<img src="https://avatar.csdn.net/8/9/6/3_tianyeming.jpg" alt="tianyeming" class="avatar-pic">
+						<span class="namebox">
+							<span class="name">tianyeming</span>
+							<span class="triangle"></span>
+						</span>
+					</a>
+				</p>
+				<p class="date-and-readNum">
+					<span class="date hover-show">03-05</span>
+					<span class="read-num hover-hide">
+						<svg class="icon csdnc-yuedushu" aria-hidden="true">
+							<use xlink:href="#csdnc-yuedushu"></use>
+						</svg>
+						2686</span>
+					</p>
+				</div>
+				<p class="content oneline">
+					<a class="oneline" href="https://blog.csdn.net/tianyeming/article/details/79442051" target="_blank" >
+						图解说明：微信大量数据存储在本地比如：联系人（包含好友地区、电话、通过那种方式添加）、聊天内容（图片、文字、语音、视频、位置、名片、其他app分享链接）、聊天室、收藏信息、朋友圈内容（包含好友详情、点...					</a>
+				</p>
+		</div>
+				</div>
+					<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_614","con":",https://blog.csdn.net/qq_24280381/article/details/73521836,BlogCommendFromQuerySearch_4"}' data-track-click='{"mod":"popu_614","con":",https://blog.csdn.net/qq_24280381/article/details/73521836,BlogCommendFromQuerySearch_4"}'>
+		<div class="content">
+			<h4 class="text-truncate oneline">
+				<a href="https://blog.csdn.net/qq_24280381/article/details/73521836" target="_blank" title="Android<em>数据库</em>加<em>解密</em>逆向分析（三）——<em>微信</em><em>数据库</em>密码破解">
+					Android<em>数据库</em>加<em>解密</em>逆向分析（三）——<em>微信</em><em>数据库</em>密码破解				</a>
+			</h4>
+			<div class="info-box d-flex align-content-center">
+				<p>
+					<a class="avatar" src="https://blog.csdn.net/qq_24280381" target="_blank">
+						<img src="https://avatar.csdn.net/6/7/6/3_qq_24280381.jpg" alt="qq_24280381" class="avatar-pic">
+						<span class="namebox">
+							<span class="name">qq_24280381</span>
+							<span class="triangle"></span>
+						</span>
+					</a>
+				</p>
+				<p class="date-and-readNum">
+					<span class="date hover-show">06-20</span>
+					<span class="read-num hover-hide">
+						<svg class="icon csdnc-yuedushu" aria-hidden="true">
+							<use xlink:href="#csdnc-yuedushu"></use>
+						</svg>
+						3988</span>
+					</p>
+				</div>
+				<p class="content oneline">
+					<a class="oneline" href="https://blog.csdn.net/qq_24280381/article/details/73521836" target="_blank" >
+						接着上一篇文章，在上一篇文章中我们通过对Line数据库加密的逆向分析，了解到了对要写入到数据库中的数据加密，读取时再将读取出的数据解密这种Android上的数据库加密方式。这篇文章来通过介绍对微信数据...					</a>
+				</p>
+		</div>
+						<div class="img-box float-left">
+				<a href="https://blog.csdn.net/qq_24280381/article/details/73521836">
+					<img src="https://csdnimg.cn/release/phoenix/article_rand_pic/mobile/mobile11.jpg" alt="">	
+				</a>
+			</div>
+			</div>
+					<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_614","con":",https://blog.csdn.net/zhangmiaoping23/article/details/79420078,BlogCommendFromQuerySearch_5"}' data-track-click='{"mod":"popu_614","con":",https://blog.csdn.net/zhangmiaoping23/article/details/79420078,BlogCommendFromQuerySearch_5"}'>
+		<div class="content">
+			<h4 class="text-truncate oneline">
+				<a href="https://blog.csdn.net/zhangmiaoping23/article/details/79420078" target="_blank" title="<em>微信</em><em>数据库</em><em>解密</em>算法">
+					<em>微信</em><em>数据库</em><em>解密</em>算法				</a>
+			</h4>
+			<div class="info-box d-flex align-content-center">
+				<p>
+					<a class="avatar" src="https://blog.csdn.net/zhangmiaoping23" target="_blank">
+						<img src="https://avatar.csdn.net/3/B/F/3_zhangmiaoping23.jpg" alt="zhangmiaoping23" class="avatar-pic">
+						<span class="namebox">
+							<span class="name">zhangmiaoping23</span>
+							<span class="triangle"></span>
+						</span>
+					</a>
+				</p>
+				<p class="date-and-readNum">
+					<span class="date hover-show">03-02</span>
+					<span class="read-num hover-hide">
+						<svg class="icon csdnc-yuedushu" aria-hidden="true">
+							<use xlink:href="#csdnc-yuedushu"></use>
+						</svg>
+						202</span>
+					</p>
+				</div>
+				<p class="content oneline">
+					<a class="oneline" href="https://blog.csdn.net/zhangmiaoping23/article/details/79420078" target="_blank" >
+						转：https://bbs.pediy.com/thread-222652.htmpc端、安卓端微信数据库解密算法安卓端微信数据库密码生成算法网上有文章介绍，这里不提了pc端的密码生产算法在内存中加密...					</a>
+				</p>
+		</div>
+				</div>
+								<div class="recommend-item-box recommend-ad-box" id="a_d_feed_0"></div>
+			<script>
+				var width = $("div.recommend-box").outerWidth() - 48;
+				NEWS_FEED({
+					w: width,
+					h: 60,
+					showid: 'Afihld',
+					placeholderId: 'a_d_feed_0',
+					inject: 'define',
+					define: {
+						imagePosition: 'left',
+						imageBorderRadius: 0,
+						imageWidth: 90,
+						imageHeight: 60,
+						imageFill: 'clip',
+						displayImage: true,
+						displayTitle: true,
+						titleFontSize: 20,
+						titleFontColor: '#333',
+						titleFontFamily: 'Microsoft Yahei',
+						titleFontWeight: 'bold',
+						titlePaddingTop: 0,
+						titlePaddingRight: 0,
+						titlePaddingBottom: 10,
+						titlePaddingLeft: 8,
+						displayDesc: true,
+						descFontSize: 14,
+						descPaddingLeft: 14,
+						descFontColor: '#6b6b6b',
+						descFontFamily: 'Microsoft Yahei',
+						paddingTop: 0,
+						paddingRight: 0,
+						paddingBottom: 0,
+						paddingLeft: 0,
+						backgroundColor: '#fff',
+						hoverColor: '#ca0c16'
+					}
+				})
+			</script>
+					<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_614","con":",https://blog.csdn.net/u012195899/article/details/52515766,BlogCommendFromQuerySearch_6"}' data-track-click='{"mod":"popu_614","con":",https://blog.csdn.net/u012195899/article/details/52515766,BlogCommendFromQuerySearch_6"}'>
+		<div class="content">
+			<h4 class="text-truncate oneline">
+				<a href="https://blog.csdn.net/u012195899/article/details/52515766" target="_blank" title="windows下<em>解密</em><em>微信</em><em>数据库</em>">
+					windows下<em>解密</em><em>微信</em><em>数据库</em>				</a>
+			</h4>
+			<div class="info-box d-flex align-content-center">
+				<p>
+					<a class="avatar" src="https://blog.csdn.net/u012195899" target="_blank">
+						<img src="https://avatar.csdn.net/2/2/F/3_u012195899.jpg" alt="u012195899" class="avatar-pic">
+						<span class="namebox">
+							<span class="name">u012195899</span>
+							<span class="triangle"></span>
+						</span>
+					</a>
+				</p>
+				<p class="date-and-readNum">
+					<span class="date hover-show">09-12</span>
+					<span class="read-num hover-hide">
+						<svg class="icon csdnc-yuedushu" aria-hidden="true">
+							<use xlink:href="#csdnc-yuedushu"></use>
+						</svg>
+						4106</span>
+					</p>
+				</div>
+				<p class="content oneline">
+					<a class="oneline" href="https://blog.csdn.net/u012195899/article/details/52515766" target="_blank" >
+						本文不涉及如何获取微信数据库原理及解密原理（这部分代码网上已经非常非常多了），假设本文读者都已经获取了两个数据，分别是加密库EnMicroMsg.db，解密密钥。
+我们知道，微信数据库是使用sqlci...					</a>
+				</p>
+		</div>
+				</div>
+					<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_614","con":",https://blog.csdn.net/njweiyukun/article/details/54024442,BlogCommendFromQuerySearch_7"}' data-track-click='{"mod":"popu_614","con":",https://blog.csdn.net/njweiyukun/article/details/54024442,BlogCommendFromQuerySearch_7"}'>
+		<div class="content">
+			<h4 class="text-truncate oneline">
+				<a href="https://blog.csdn.net/njweiyukun/article/details/54024442" target="_blank" title="Android动态破解<em>微信</em>本地<em>数据库</em>(EnMicroMsg.db)">
+					Android动态破解<em>微信</em>本地<em>数据库</em>(EnMicroMsg.db)				</a>
+			</h4>
+			<div class="info-box d-flex align-content-center">
+				<p>
+					<a class="avatar" src="https://blog.csdn.net/njweiyukun" target="_blank">
+						<img src="https://avatar.csdn.net/1/0/F/3_njweiyukun.jpg" alt="njweiyukun" class="avatar-pic">
+						<span class="namebox">
+							<span class="name">njweiyukun</span>
+							<span class="triangle"></span>
+						</span>
+					</a>
+				</p>
+				<p class="date-and-readNum">
+					<span class="date hover-show">01-05</span>
+					<span class="read-num hover-hide">
+						<svg class="icon csdnc-yuedushu" aria-hidden="true">
+							<use xlink:href="#csdnc-yuedushu"></use>
+						</svg>
+						2万</span>
+					</p>
+				</div>
+				<p class="content oneline">
+					<a class="oneline" href="https://blog.csdn.net/njweiyukun/article/details/54024442" target="_blank" >
+						最近在公司接了一个任务，需要获取几百台手机上安装一个app，目的是获取微信里面的通讯录，并且定时的把他发送到我们的服务器上。
+当时依次尝试的如下几个方案：
+  1-通过群控，将好友截图发送到服务端（p...					</a>
+				</p>
+		</div>
+				</div>
+					<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_614","con":",https://blog.csdn.net/u011084603/article/details/71629213,BlogCommendFromQuerySearch_8"}' data-track-click='{"mod":"popu_614","con":",https://blog.csdn.net/u011084603/article/details/71629213,BlogCommendFromQuerySearch_8"}'>
+		<div class="content">
+			<h4 class="text-truncate oneline">
+				<a href="https://blog.csdn.net/u011084603/article/details/71629213" target="_blank" title="应用程序中破解<em>微信</em><em>数据库</em>做数据分析">
+					应用程序中破解<em>微信</em><em>数据库</em>做数据分析				</a>
+			</h4>
+			<div class="info-box d-flex align-content-center">
+				<p>
+					<a class="avatar" src="https://blog.csdn.net/u011084603" target="_blank">
+						<img src="https://avatar.csdn.net/D/8/1/3_u011084603.jpg" alt="u011084603" class="avatar-pic">
+						<span class="namebox">
+							<span class="name">u011084603</span>
+							<span class="triangle"></span>
+						</span>
+					</a>
+				</p>
+				<p class="date-and-readNum">
+					<span class="date hover-show">05-11</span>
+					<span class="read-num hover-hide">
+						<svg class="icon csdnc-yuedushu" aria-hidden="true">
+							<use xlink:href="#csdnc-yuedushu"></use>
+						</svg>
+						1722</span>
+					</p>
+				</div>
+				<p class="content oneline">
+					<a class="oneline" href="https://blog.csdn.net/u011084603/article/details/71629213" target="_blank" >
+						本文概述：介绍如何编写Android小程序用于对手机微信聊天记录做数据统计展示，如统计用户所加入若干群中发放红包情况、聊天关键词记录等。本文为该系列第一篇，主要介绍破解微信数据库的流程。接下来依次为：...					</a>
+				</p>
+		</div>
+						<div class="img-box float-left">
+				<a href="https://blog.csdn.net/u011084603/article/details/71629213">
+					<img src="https://csdnimg.cn/release/phoenix/article_rand_pic/mobile/mobile22.jpg" alt="">	
+				</a>
+			</div>
+			</div>
+					<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_614","con":",https://blog.csdn.net/chenwill3/article/details/49721035,BlogCommendFromQuerySearch_9"}' data-track-click='{"mod":"popu_614","con":",https://blog.csdn.net/chenwill3/article/details/49721035,BlogCommendFromQuerySearch_9"}'>
+		<div class="content">
+			<h4 class="text-truncate oneline">
+				<a href="https://blog.csdn.net/chenwill3/article/details/49721035" target="_blank" title="java<em>微信</em>消息加<em>解密</em>">
+					java<em>微信</em>消息加<em>解密</em>				</a>
+			</h4>
+			<div class="info-box d-flex align-content-center">
+				<p>
+					<a class="avatar" src="https://blog.csdn.net/chenwill3" target="_blank">
+						<img src="https://avatar.csdn.net/2/F/6/3_chenwill3.jpg" alt="chenwill3" class="avatar-pic">
+						<span class="namebox">
+							<span class="name">chenwill3</span>
+							<span class="triangle"></span>
+						</span>
+					</a>
+				</p>
+				<p class="date-and-readNum">
+					<span class="date hover-show">11-08</span>
+					<span class="read-num hover-hide">
+						<svg class="icon csdnc-yuedushu" aria-hidden="true">
+							<use xlink:href="#csdnc-yuedushu"></use>
+						</svg>
+						5341</span>
+					</p>
+				</div>
+				<p class="content oneline">
+					<a class="oneline" href="https://blog.csdn.net/chenwill3/article/details/49721035" target="_blank" >
+						微信开发现在也算是一种潮流，但是对于java程序员来说如果基础不够牢固，那么微信开发你还是高攀不起。学好微信开发的前提是基础要稳固，而且还要有阅读微信开发文档的能力，而不是动不动就百度谷歌；还是建议先...					</a>
+				</p>
+		</div>
+						<div class="img-box float-left">
+				<a href="https://blog.csdn.net/chenwill3/article/details/49721035">
+					<img src="https://csdnimg.cn/release/phoenix/article_rand_pic/mobile/mobile9.jpg" alt="">	
+				</a>
+			</div>
+			</div>
+			
+            <div class="recommend-loading-box">
+                <img src='https://csdnimg.cn/release/phoenix/images/feedLoading.gif'>
+            </div>
+            <div class="recommend-end-box">
+                <p class="text-center">没有更多推荐了，<a href="https://blog.csdn.net/" class="c-blue c-blue-hover c-blue-focus">返回首页</a></p>
+            </div>
+        </div>
+    </main>
+    <aside>
+		    <div id="asideProfile" class="aside-box">
+    <h3 class="aside-title">个人资料</h3>
+    <div class="profile-intro d-flex">
+        <div class="avatar-box d-flex justify-content-center flex-column">
+            <a href="https://blog.csdn.net/jiangwei0910410003">
+                <img src="https://avatar.csdn.net/7/1/0/3_jiangwei0910410003.jpg" class="avatar_pic">
+            </a>
+        </div>
+        <div class="user-info d-flex justify-content-center flex-column">
+            <p class="name csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                <a href="https://blog.csdn.net/jiangwei0910410003" target="_blank" class="text-truncate" id="uid">尼古拉斯_赵四</a>
+            </p>
+                        <p class="flag">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#csdnc-blogexpert"></use>
+                </svg>
+                博客专家
+            </p>
+                    </div>
+                <div class="opt-box d-flex justify-content-center flex-column">
+            <span  class="csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                                <a class="btn btn-sm btn-red-hollow" href="https://passport.csdn.net/account/login?from=https://blog.csdn.net/jiangwei0910410003/article/details/79436956" target="_self">关注</a>
+                            </span>
+                        <span  class="csdn-tracking-statistics tracking-click" data-mod="">
+                <a class="btn btn-sm btn-yellow-hollow" id="btnAsk" href="#chatqa" target="_self">向TA提问</a>
+            </span>
+                    </div>
+            </div>
+    <div class="data-info d-flex item-tiling">
+                <dl class="text-center" title="325">
+                        <dt><a href="https://blog.csdn.net/jiangwei0910410003?t=1">原创</a></dt>
+            <dd><a href="https://blog.csdn.net/jiangwei0910410003?t=1"><span class="count">325</span></a></dd>
+                    </dl>
+        <dl class="text-center" title="7952">
+            <dt>粉丝</dt>
+            <dd><span class="count" id="fan">7952</span></dd>
+        </dl>
+        <dl class="text-center" title="2930">
+            <dt>喜欢</dt>
+            <dd><span class="count">2930</span></dd>
+        </dl>
+        <dl class="text-center" title="1788">
+            <dt>评论</dt>
+            <dd><span class="count">1788</span></dd>
+        </dl>
+    </div>
+    <div class="grade-box clearfix">
+        <dl>
+            <dt>等级：</dt>
+            <dd>
+                <a href="https://blog.csdn.net/home/help.html#level" title="8级,点击查看等级说明" target="_blank">
+                    <svg class="icon icon-level" aria-hidden="true">
+                        <use xlink:href="#csdnc-bloglevel-8"></use>
+                    </svg>
+                </a>
+            </dd>
+        </dl>
+        <dl>
+            <dt>访问：</dt>
+            <dd title="6234136">
+                623万+            </dd>
+        </dl>
+        <dl>
+            <dt>积分：</dt>
+            <dd title="33919">
+                3万+            </dd>
+        </dl>
+        <dl title="177">
+            <dt>排名：</dt>
+            <dd>177</dd>
+        </dl>
+    </div>
+        <div class="badge-box d-flex">
+        <span>勋章：</span>
+                <a class="icon-badge" title="专栏达人">
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#csdnc-m-columns"></use>
+            </svg>
+            <div class="icon-arrow"></div>
+            <div class="grade-detail-box item1">
+                <div class="pos-box">
+                    <div class="left-box d-flex justify-content-center align-items-center flex-column">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#csdnc-m-columns"></use>
+                        </svg>
+                        <p>专栏达人</p>
+                    </div>
+                    <div class="right-box d-flex justify-content-center align-items-center">
+                        授予成功创建个人博客专栏的用户。专栏中添加五篇以上博文即可点亮！撰写博客专栏浓缩技术精华，专栏达人就是你！
+                    </div>
+                </div>
+            </div> 
+        </a>  
+                        <a class="icon-badge" title="持之以恒">
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#csdnc-m-lasting"></use>
+            </svg>
+            <div class="icon-arrow"></div>
+            <div class="grade-detail-box item2">
+                <div class="pos-box">
+                    <div class="left-box d-flex justify-content-center align-items-center flex-column">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#csdnc-m-lasting"></use>
+                        </svg>
+                        <p>持之以恒</p>
+                    </div>
+                    <div class="right-box d-flex justify-content-center align-items-center">
+                        授予每个自然月内发布4篇或4篇以上原创或翻译IT博文的用户。不积跬步无以至千里，不积小流无以成江海，程序人生的精彩需要坚持不懈地积累！
+                    </div>
+                </div>
+            </div>
+        </a>
+                            </div>
+    </div>		    <div class="csdn-tracking-statistics mb8 box-shadow" data-pid="blog" data-mod="popu_4" style="height:250px;">
+    <div class="aside-content text-center" id="cpro_u2734133">
+      <!-- 广告位：PC-博客内页-百度联盟-300x250 -->
+                      <script type="text/javascript" src="//cee1.iteye.com/lgyyovfyh.js"></script>    </div>
+</div>
+		    <!--自定义模块-->
+<div id="asideCustom42627235" class="aside-box custom-box">
+    <h3 class="aside-title">Android应用安全防护和逆向分析</h3>
+    <div class="aside-content clearfix">
+        <font color="#FF0000" size="3">《Android应用安全防护和逆向分析》</font>
+<br><br>
+<center><div class="text" xss=removed>
+<font color="#FF6655" size="2"><b>360创始人周鸿祎、CSDN创始人蒋涛、看雪创始人段钢联袂推荐</b></font> <br>
+<br>
+<font color="#078899" size="2"><b>零基础学习移动安全逆向，手把手带你进入安全逆向领域！安全不息，逆向不止！让别人的应用都成为我们手中的炮灰！</b></font><br>
+<br>
+<a href="https://item.jd.com/12271376.html"><img src="http://img.blog.csdn.net/20171218160639075"></a>
+<br>
+<br>
+<font color="#00A67C" size="4"><b>购买地址：</b></font> <a href="https://item.jd.com/12271376.html">
+<font color="#FF0000" size="4"><b>京东</b></font></a> <a href="https://detail.tmall.com/item.htm?id=561791430421">
+<font color="#FF0000" size="4"><b>天猫</b></font></a> </div>
+
+<div class="text" xss=removed><font color="#FF6655" size="4"><br>
+<font color="#078899" size="4"><b>关注微信公众号接受实时推送最新技术文章！</b></font> <br>
+<img src="http://img.blog.csdn.net/20160822091821005">
+</font>
+</div>
+
+<font color="#FF6655" size="4">
+<div class="text" xss=removed><font color="#FF6655" size="4"><b>微信扫一扫加入安全逆向圈</b></font>
+<br>
+<br>
+<img src="http://img.blog.csdn.net/20180304145002520">
+</div>
+</font>
+</center>
+    </div>
+</div>
+		    <div id="asideNewArticle" class="aside-box">
+    <h3 class="aside-title">最新文章</h3>
+    <div class="aside-content">
+        <ul class="inf_list clearfix csdn-tracking-statistics tracking-click" data-mod="popu_382">
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/details/80744796" target="_blank">Android逆向之旅---微信封了抖音分享功能，而我要把短视频分享到朋友圈！</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/details/80729004" target="_blank">Android中应用是否可以接入微信SDK分享应用内的短视频功能？</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/details/80639093" target="_blank">Android安全防护模式「多任务窗口中的界面高斯模糊处理」其实是个骗局？</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/details/80461169" target="_blank">Android中模仿探究抖音短视频的动态壁纸功能以及动态壁纸的拓展功能使用</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/details/80459505" target="_blank">Android逆向之旅---破解过滤掉某音短视频的广告和视频水印问题</a>
+            </li>
+                    </ul>
+    </div>
+</div>
+		    <div id="asideArchive" class="aside-box flexible-box">
+    <h3 class="aside-title">归档</h3>
+    <div class="aside-content">
+        <ul class="archive-list">
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2018/08">
+                    2018年8月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2018/07">
+                    2018年7月                    <span class="count float-right">5篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2018/06">
+                    2018年6月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2018/05">
+                    2018年5月                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2018/04">
+                    2018年4月                    <span class="count float-right">3篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2018/03">
+                    2018年3月                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2018/02">
+                    2018年2月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2018/01">
+                    2018年1月                    <span class="count float-right">5篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2017/12">
+                    2017年12月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2017/11">
+                    2017年11月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2017/10">
+                    2017年10月                    <span class="count float-right">3篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2017/09">
+                    2017年9月                    <span class="count float-right">3篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2017/08">
+                    2017年8月                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2017/07">
+                    2017年7月                    <span class="count float-right">6篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2017/06">
+                    2017年6月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2017/05">
+                    2017年5月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2017/04">
+                    2017年4月                    <span class="count float-right">3篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2017/03">
+                    2017年3月                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2017/02">
+                    2017年2月                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2017/01">
+                    2017年1月                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2016/12">
+                    2016年12月                    <span class="count float-right">5篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2016/11">
+                    2016年11月                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2016/10">
+                    2016年10月                    <span class="count float-right">7篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2016/09">
+                    2016年9月                    <span class="count float-right">6篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2016/08">
+                    2016年8月                    <span class="count float-right">8篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2016/07">
+                    2016年7月                    <span class="count float-right">5篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2016/06">
+                    2016年6月                    <span class="count float-right">5篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2016/05">
+                    2016年5月                    <span class="count float-right">8篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2016/04">
+                    2016年4月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2016/03">
+                    2016年3月                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2016/02">
+                    2016年2月                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2016/01">
+                    2016年1月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2015/12">
+                    2015年12月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2015/11">
+                    2015年11月                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2015/10">
+                    2015年10月                    <span class="count float-right">3篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2015/09">
+                    2015年9月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2015/08">
+                    2015年8月                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2015/06">
+                    2015年6月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2015/05">
+                    2015年5月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2015/01">
+                    2015年1月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2014/12">
+                    2014年12月                    <span class="count float-right">30篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2014/11">
+                    2014年11月                    <span class="count float-right">8篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2014/10">
+                    2014年10月                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2014/09">
+                    2014年9月                    <span class="count float-right">7篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2014/07">
+                    2014年7月                    <span class="count float-right">12篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2014/06">
+                    2014年6月                    <span class="count float-right">3篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2014/05">
+                    2014年5月                    <span class="count float-right">12篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2014/04">
+                    2014年4月                    <span class="count float-right">13篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2014/03">
+                    2014年3月                    <span class="count float-right">6篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2014/02">
+                    2014年2月                    <span class="count float-right">20篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2014/01">
+                    2014年1月                    <span class="count float-right">6篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2013/12">
+                    2013年12月                    <span class="count float-right">32篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jiangwei0910410003/article/month/2013/11">
+                    2013年11月                    <span class="count float-right">32篇</span>
+                </a>
+            </li>
+                    </ul>
+    </div>
+        <p class="text-center">
+        <a class="btn btn-link-blue flexible-btn" data-fbox="aside-archive">展开</a>
+    </p>
+    </div>
+		    <div id="asideHotArticle" class="aside-box">
+	<h3 class="aside-title">热门文章</h3>
+	<div class="aside-content">
+		<ul class="hotArticle-list csdn-tracking-statistics tracking-click" data-mod="popu_521">
+							<li>
+					<a href="https://blog.csdn.net/jiangwei0910410003/article/details/41620363">Mac上的抓包工具Charles</a>
+					<p class="read">阅读量：<span>340902</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/jiangwei0910410003/article/details/19806999">抓包工具Fidder详解(主要来抓取Android中app的请求)</a>
+					<p class="read">阅读量：<span>190831</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/jiangwei0910410003/article/details/18967441">Window 通过cmd查看端口占用、相应进程、杀死进程等的命令</a>
+					<p class="read">阅读量：<span>162183</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/jiangwei0910410003/article/details/16983049">Android中的onActivityResult和setResult方法的使用</a>
+					<p class="read">阅读量：<span>147385</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/jiangwei0910410003/article/details/48415225">Android中的Apk的加固(加壳)原理解析和实现</a>
+					<p class="read">阅读量：<span>123300</span></p>
+				</li>
+					</ul>
+	</div>
+</div>
+		<div id="asideFooter">
+			
+		<div class="aside-box">
+						<script type="text/javascript" src="//cee1.iteye.com/mhzzpwgzj.js"></script>
+					</div>
+				<div class="aside-box">
+			<div class="persion_article">
+			</div>
+		</div>
+	</div>
+</aside>
+<script src="https://csdnimg.cn/pubfooter/js/publib_footer-1.0.3.js" data-isfootertrack="false" type="text/javascript"></script>
+<script>
+	$("a.flexible-btn").click(function(){
+		$(this).parents('div.aside-box').removeClass('flexible-box');
+		$(this).remove();
+	})
+</script>
+</div>
+<div class="mask-dark"></div>
+<div class="pulllog-box" style="display: block;">
+	<div class="pulllog clearfix">
+		<span class="text float-left">
+			<!-- 广告位：PC-博客内页底通 文字链位置 -->
+			<script>
+			(function() {
+				var s = "_" + Math.random().toString(36).slice(2);
+				document.write('<div id="baidufooter_0001"></div>');
+				(window.slotbydup=window.slotbydup || []).push({
+					id: '5851901',
+					container: 'baidufooter_0001',
+					size: '520,40',
+					display: 'inlay-fix'
+				});
+			})();
+			</script>
+			<script src="https://dup.baidustatic.com/js/os.js"></script>
+			<style>
+				#baidufooter_0001{
+					display: none !important;
+				}
+			</style>
+		</span>
+		<div class="pulllog-btn float-right clearfix">
+            <button class="pulllog-login float-left csdn-tracking-statistics tracking-click" data-mod="popu_557">
+                登录
+            </button>
+            <div class="pulllog-sigin float-left csdn-tracking-statistics tracking-click" data-mod="popu_558">
+                <a href="https://passport.csdn.net/account/mobileregister" target="_blank">注册</a>
+            </div>
+            <button class="btn-close">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#csdnc-times"></use>
+                </svg>
+            </button>
+		</div>
+	</div>
+</div>
+<div id="loginWrap" style="display:none"></div>
+<div class="tool-box">
+	<ul class="meau-list">
+		<li>
+			<button class="btn-like " title="点赞">
+				<svg class="icon active" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup-ok"></use>
+				</svg><svg class="icon no-active" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup"></use>
+				</svg>
+				<p>4</p>
+			</button>
+		</li>
+		<li>
+			<a class="btn-comments" title="写评论" href="#commentBox">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-comments"></use>
+				</svg><br>写评论			</a>
+		</li>
+		<li class="toc-container-box" id="liTocBox">
+			<button class="btn-toc" title="目录">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-contents"></use>
+				</svg><br>目录
+			</button>
+			<div class="toc-container">
+				<div class="pos-box">
+					<div class="icon-arrow"></div>
+					<div class="scroll-box">
+						<div class="toc-box"></div>
+					</div>
+				</div>
+				<div class="opt-box">
+					<button class="btn-opt prev nomore" title="向上">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#csdnc-chevronup"></use>
+						</svg>
+					</button>
+					<button class="btn-opt next">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#csdnc-chevrondown"></use>
+						</svg>
+					</button>
+				</div>
+			</div>
+		</li>
+		<li>
+			<button class="btn-bookmark" title="收藏">
+				<svg class="icon active" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark-ok"></use>
+				</svg><svg class="icon no-active" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark"></use>
+				</svg><br>收藏
+			</button>
+		</li>
+				<li>
+			<a class="btn-comments chat-ask-button" title="快问" href="#chatqa">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-chat-qa"></use>
+				</svg><br>快问
+			</a>
+		</li>
+				<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_weixin" data-cmd="weixin" title="微信分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-wechat"></use>
+				</svg><br>微信
+			</a>
+		</li>
+		<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_tsina" data-cmd="tsina" title="微博分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-weibo"></use>
+				</svg><br>微博
+			</a>
+		</li>
+		<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_qzone" data-cmd="qzone" title="QQ分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-qq"></use>
+				</svg><br>QQ
+			</a>
+		</li>
+					</ul>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'https://csdnimg.cn/static/api/js/share.js?v=89860594'];</script>
+<script>
+    var recommendCount = 10;
+    recommendCount = recommendCount > 1 ? (recommendCount + (recommendCount>6 ? 2 : 1)) : recommendCount;
+    var articleTit = "微信数据库最新的解密方式，C++代码解密微信数据库信息！";
+    var ChannelId = 1;
+    var articleId = "79436956";
+    var commentscount = 6;
+    var islock = false;
+    var curentUrl = "https://blog.csdn.net/jiangwei0910410003/article/details/79436956";
+    var myUrl = "https://my.csdn.net/";
+    //1禁止评论，2正常
+    var commentAuth = 2;
+    //百度搜索
+    var baiduKey = "";
+    var needInsertBaidu = true;
+    // 代码段样式
+    var codeStyle = 'atom-one-dark';
+    var highlight = ["\u5fae\u4fe1","\u6570\u636e\u5e93","\u6700\u65b0","\u89e3\u5bc6","\u65b9\u5f0f","c++","\u4ee3\u7801","\u89e3\u5bc6","\u5fae\u4fe1","\u6570\u636e\u5e93","\u4fe1\u606f"];//高亮数组
+</script>
+<script src="https://csdnimg.cn/public/sandalstrap/1.3/js/sandalstrap.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.js"></script>
+<script src='https://csdnimg.cn/public/common/gotop/js/goTop-v1.0.min.js?v201803151422'></script>
+<script>
+    GoTop({
+        right: 8,
+        hasReport: true,
+        reportFun: function() {
+            showReport(false,"微信数据库最新的解密方式，C++代码解密微信数据库信息！");
+        }
+    })
+</script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/common-a4f198c74c.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/detail-724d166897.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/themes/skin-yellow/skin-yellow-359ea0cc8d.min.js"></script>
+</body>
+<div class="box-box-aways">
+    <a class="btn-remove">
+        关闭
+    </a>
+    <div id="adAways">
+        <script>
+            (function() {
+            (window.slotbydup=window.slotbydup || []).push({
+            id: '5868728',
+            container: 'adAways',
+            size: '250,500',
+            display: 'inlay-fix'
+            });
+            })();
+            </script>
+        <script src="https://dup.baidustatic.com/js/os.js"></script>
+    </div>
+</div>
+<div class="box-box-default">
+    <a class="btn-remove">
+        关闭
+    </a>
+    <script type="text/javascript" src="//cee1.iteye.com/mhzzjepzz.js"></script>
+</div>
+<div class="box-box-large">
+    <a class="btn-remove">
+        关闭
+    </a>
+    <script type="text/javascript" src="//cee1.iteye.com/idvveasfs.js"></script>
+</div>
+<!-- 第四范式SDK -->
+
+<!-- 高亮未与 markdown兼容  -->
+	<link rel="stylesheet" href="https://csdnimg.cn/release/blog_editor_html/release1.3.1/ckeditor/plugins/chart/chart.css" />
+	<script type="text/javascript" src="https://csdnimg.cn/release/blog_editor_html/release1.3.1/ckeditor/plugins/chart/lib/chart.min.js"></script>
+	<script type="text/javascript" src="https://csdnimg.cn/release/blog_editor_html/release1.3.1/ckeditor/plugins/chart/widget2chart.js"></script>
+	<link rel="stylesheet" href="https://csdnimg.cn/release/blog_editor_html/release1.3.1/ckeditor/plugins/codesnippet/lib/highlight/styles/atom-one-dark.css">
+	<script type="text/javascript" src="https://csdnimg.cn/release/phoenix/production/pc_wap_common-93244aa03c.js" /></script>
+
+	<script type="text/javascript">
+	$(function(){
+		var allEscRegex = /&(lt|gt|amp|quot|nbsp|shy|#\d{1,5});/g,
+		    namedEntities = {
+					lt: '<',
+					gt: '>',
+					amp: '&',
+					quot: '"',
+					nbsp: '\u00a0',
+					shy: '\u00ad'
+				}
+		var allEscDecode = function( match, code ) {
+				return namedEntities[ code ];
+		};
+		htmlDecodeAttr = function( text ) {
+				return text.replace( allEscRegex, allEscDecode );
+		}
+	  hljs.initHighlightingOnLoad();
+	  hljs.initCopyButtonOnLoad();
+	  hljs.initLineNumbersOnLoad();
+		if($('pre .language-plain').length>0){
+			$('pre .language-plain').each(function(i,e){
+				var highlightRe = hljs.highlightAuto(htmlDecodeAttr(e.innerHTML))
+				e.innerHTML = highlightRe.value;
+				e.className = 'language-'+highlightRe.language;
+			});
+		}
+	})
+	</script>
+<script type="text/javascript" src="https://static-blog.csdn.net/mdeditor/public/res/bower-libs/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            "HTML-CSS": {
+                    linebreaks: { automatic: true, width: "94%container" },
+                    imageFont: null
+            },
+            tex2jax: {
+                preview: "none"
+            },
+            mml2jax: {
+                preview: 'none'
+            }
+    });
+</script>
+</html>

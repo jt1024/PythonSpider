@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <link rel="canonical" href="https://blog.csdn.net/M7720EIoSi6oA9/article/details/81463841"/> 
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="referrer" content="always">
+    <meta name="description" content="文 | 大号科技 高倩茹   编辑 | 默然现在越来越多的公司，都选择了“上云”，那么自然云计算服务的安全性和稳定性，都会面临着来自用户方的更高更迫切的要求！而在所有企业..." />
+    <meta name="keywords" content="" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+    <meta name="shenma-site-verification" content="5a59773ab8077d4a62bf469ab966a63b_1497598848">
+    <script src="https://csdnimg.cn/release/phoenix/vendor/tingyun/tingyun-rum-blog.js"></script>
+
+    <link href="https://csdnimg.cn/public/favicon.ico" rel="SHORTCUT ICON">
+    <title>腾讯云服务再出BUG,赔一千万多吗？ - CSDN博客</title>
+    
+            <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/detail-850e001537.min.css">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/themes/skin3-template/skin3-template-8195ccbe2d.min.css">
+
+    <script type="text/javascript">
+        var username = "M7720EIoSi6oA9";
+        var blog_address = "https://blog.csdn.net/m7720eiosi6oa9";
+        var static_host = "https://csdnimg.cn/release/phoenix/";
+        var currentUserName = ""; 
+        var isShowAds = true;
+        var isOwner = false;
+        var loginUrl = "https://passport.csdn.net/account/login?from=https://blog.csdn.net/M7720EIoSi6oA9/article/details/81463841"
+        var blogUrl = "https://blog.csdn.net/";
+        //页面皮肤样式
+        var curSkin = "skin3-template";
+    </script>
+    <script type="text/javascript">
+        // Traffic Stats of the entire Web site By baidu
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?6bcd52f51e9b3dce32bec4a3997715ac";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+        // Traffic Stats of the entire Web site By baidu end
+    </script>
+    <script src="https://csdnimg.cn/public/common/libs/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="https://csdnimg.cn/rabbit/exposure-click/main-1.0.6.js"></script>
+    <!-- 新版上报 -->
+    <script src="//g.csdnimg.cn/track/1.0.1/track.js" type="text/javascript"></script>
+    <!-- 新版上报end -->
+            <link rel="stylesheet" href="https://csdnimg.cn/public/sandalstrap/1.3/css/sandalstrap.min.css"> 
+    <style>
+        .MathJax, .MathJax_Message, .MathJax_Preview{
+            display: none
+        }
+    </style>
+</head>
+<body>    
+    <link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+    <script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+<script type="text/javascript" src="//static.mediav.com/js/mvf_news_feed.js"></script>
+<div style="display:none;">
+	<img src="" onerror='setTimeout(function(){if(!/(csdn.net|iteye.com|baiducontent.com|googleusercontent.com|360webcache.com|sogoucdn.com|bingj.com|baidu.com)$/.test(window.location.hostname)){window.location.href="\x68\x74\x74\x70\x73\x3a\x2f\x2f\x77\x77\x77\x2e\x63\x73\x64\x6e\x2e\x6e\x65\x74"}},3000);'>
+</div>
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/chart-3456820cac.css" />
+
+
+
+<script src="https://dup.baidustatic.com/js/ds.js"></script>
+<div class="container clearfix" id="mainBox">
+		<!-- <div id="breadcrumbs">
+			<span><a href="https://blog.csdn.net/">博客首页</a></span>
+			<i>></i>
+			<span><a href="https://blog.csdn.net/m7720eiosi6oa9">比特网</a></span>
+			<i>></i>
+			<span>腾讯云服务再出BUG,赔一千万多吗？</span>
+		</div> -->
+    <main>
+        <div class="blog-content-box">
+	<div class="article-header-box">
+		<div class="article-header">
+			<div class="article-title-box">
+				<span class="article-type type-1 float-left">原</span>				<h1 class="title-article">腾讯云服务再出BUG,赔一千万多吗？</h1>
+			</div>
+			<div class="article-info-box">
+				<div class="article-bar-top d-flex">
+																				<span class="time">2018年08月06日 19:44:10</span>
+					<div class="float-right">
+						<span class="read-count">阅读数：7014</span>
+																	</div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	<article>
+		<div id="article_content" class="article_content clearfix csdn-tracking-statistics" data-pid="blog"  data-mod=popu_307  data-dsm = "post" >
+                    <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/ck_htmledit_views-e2445db1a8.css" />
+						<div class="htmledit_views">
+                
+    <div class="rich_media_content" id="js_content">
+                    
+
+                    
+
+                    
+                    
+                    <p style="margin-left:8px;text-align:center;line-height:1.75em;"><img src="https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_gif/hGJIECJlyIEABUHletZ6ibEPl7iadwib4ppcxOIxTibIjszqkBK4ia9ZicXNibepac7UHjF9RsYLKOl2HZ9j6M70L61bA/640" alt="640" /><br /></p><p style="margin-left:8px;text-align:center;line-height:1.75em;"><br /></p><p style="margin-left:16px;color:rgb(51,51,51);text-align:center;"><span style="font-size:12px;color:rgb(136,136,136);">文</span><span style="color:rgb(0,0,0);font-size:12px;"><span class="Apple-converted-space"> </span>| 大号科技 高倩茹   </span></p><p style="margin-left:16px;color:rgb(51,51,51);text-align:center;"><span style="font-size:12px;color:rgb(136,136,136);">编辑</span><span style="color:rgb(0,0,0);font-size:12px;"> | 默然</span></p><p style="margin-left:8px;text-align:justify;line-height:1.75em;"><br /></p><p style="margin-left:8px;text-align:justify;line-height:1.75em;"><span style="font-size:15px;letter-spacing:1px;">现在越来越多的公司，都选择了“上云”，那么自然云计算服务的安全性和稳定性，都会面临着来自用户方的更高更迫切的要求！而在所有企业一股脑上云的同时，不知有没有想过云端出现问题该怎么解决？今天就出现这样一个争议。</span><br /></p><p style="margin-left:8px;text-align:justify;line-height:1.75em;"><span style="letter-spacing:1px;font-size:15px;"> </span></p><p style="margin-left:8px;text-align:justify;line-height:1.75em;"><span style="letter-spacing:1px;font-size:15px;">据消息称：腾讯云用户“前沿数控”，因受所在物理硬盘固件版本Bug导致的静默错误，文件系统元数据损坏。对此，腾讯云官方发布说明表示，愿意为"前沿数控“提供 132900 元现金或云资源的额外补偿。不过，"前沿数控"基于自身评估就此次故障对腾讯云提出了高达 11016000 元的索赔要求，目前为止，双方还未达成一致。这一事件，让大家又一次纷纷质疑云数据的安全性。</span></p><p style="margin-left:8px;text-align:justify;line-height:1.75em;"><span style="letter-spacing:1px;font-size:15px;"> </span></p><p class="135brush" style="color:rgb(255,255,255);min-width:1px;">宕机频发，云端真的安全吗？</p><p><br /></p><p style="margin-left:8px;text-align:justify;line-height:1.75em;"><span style="letter-spacing:1px;font-size:15px;">不到两周前，腾讯云服务刚刚出现过宕机。腾讯云广州区域全面断网，腾讯云主页、控制台、DNSPod等业务都无法使用。</span></p><p style="margin-left:8px;text-align:justify;line-height:1.75em;"><span style="letter-spacing:1px;font-size:15px;"><br /></span></p><p style="margin-left:8px;text-align:center;"><img src="https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_png/hGJIECJlyIE9Yeoibr6D12Z2kLpbnzia5mQIewUCWPEdnE8jylkibswxusT4Ep7GTibsNo5NSGZCDMsUETufq8BfYw/640" alt="640" /></p><p style="margin-left:8px;text-align:justify;line-height:1.75em;"><span style="letter-spacing:1px;font-size:15px;"></span></p><p style="margin-left:8px;"><img src="https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_png/hGJIECJlyIE9Yeoibr6D12Z2kLpbnzia5muq9gJaF1VROd11HfGrBiblxTMlibmHMAFtW3et8ck9wJRh77HQBwjFibA/640" alt="640" /></p><p style="margin-left:8px;"><img src="https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_png/hGJIECJlyIE9Yeoibr6D12Z2kLpbnzia5mLibE0LudDt68La3HKBq4jLxGztqic0AIctKhxavzpX4kj86DQibA2MFSw/640" alt="640" /></p><p style="margin-left:8px;text-align:justify;line-height:1.75em;"><span style="letter-spacing:1px;font-size:15px;">虽然腾讯声称是由于不可抗力的事故原因，但很多用户依然流露极大的不满，转而投向其他云端服务。但哪个云服务才是安全的？</span></p><p style="margin-left:8px;text-align:justify;line-height:1.75em;"><span style="letter-spacing:1px;font-size:15px;"><br /></span></p><p style="margin-left:8px;text-align:justify;line-height:1.75em;"><span style="letter-spacing:1px;font-size:15px;">6月27日下午，阿里云出现故障，好在半小时内就恢复正常。阿里对于故障的解释是，“系工程师团队在上线一个自动化运维新功能中，执行了一项变更验证操作。这一功能在测试环境验证中并未发生问题，但上线到自动化运维系统后，触发了一个未知代码bug。错误代码禁用了部分内部IP，导致部分产品访问链路不通。”</span></p><p style="margin-left:8px;text-align:justify;line-height:1.75em;"><span style="letter-spacing:1px;font-size:15px;"></span></p><p style="margin-left:8px;text-align:justify;line-height:1.75em;"><span style="letter-spacing:1px;font-size:15px;">7月17日，AWS（亚马逊公司旗下云计算服务平台）管理控制台间歇性失灵；</span></p><p style="margin-left:8px;text-align:justify;line-height:1.75em;"><span style="letter-spacing:1px;font-size:15px;"><br /></span></p><p style="margin-left:8px;text-align:justify;line-height:1.75em;"><span style="letter-spacing:1px;font-size:15px;">紧跟着的第二天，7月18日，谷歌云的平台全局负载均衡服务发生了中断......</span></p><p style="margin-left:8px;text-align:justify;line-height:1.75em;"><span style="letter-spacing:1px;font-size:15px;"><br /></span></p><p style="margin-left:8px;text-align:justify;line-height:1.75em;"><span style="letter-spacing:1px;font-size:15px;">头部的云服务产品，都不能保证百分百安全，以至于用户都在想，是不是仅仅购买一家云服务厂商的服务，已经没法保证业务稳定、数据安全的需求了？</span></p><p style="margin-left:8px;text-align:justify;line-height:1.75em;"><span style="letter-spacing:1px;font-size:15px;"><br /></span></p><p style="margin-left:8px;text-align:justify;line-height:1.75em;"><span style="letter-spacing:1px;font-size:15px;">而很多公司纷纷表示，不要将鸡蛋放到别人的篮子以及不要将鸡蛋放到同一个篮子，成为避免这种损失的两种解决方案。</span></p><p style="margin-left:8px;text-align:justify;line-height:1.75em;"><span style="letter-spacing:1px;font-size:15px;"><br /></span></p><p style="margin-left:8px;text-align:justify;line-height:1.75em;"><span style="letter-spacing:1px;font-size:15px;">但对于自建机房以及分散购买云服务，对于一些规模较小的企业来说还不太现实。</span></p><p style="margin-left:8px;text-align:justify;line-height:1.75em;"><span style="letter-spacing:1px;font-size:15px;"></span></p><p class="135brush" style="color:rgb(255,255,255);min-width:1px;">云端数据损失，陪1000万多吗？</p><p style="margin-left:8px;text-align:justify;line-height:1.75em;"><strong><span style="letter-spacing:1px;font-size:15px;"><br /></span></strong></p><p style="margin-left:8px;text-align:justify;line-height:1.75em;"><span style="letter-spacing:1px;font-size:15px;">企业数据的价值毋庸置疑，是企业非常重要的资产，此次“前沿数据”由于在云端数据全部丢失且不可恢复，称数据价值上千万。腾讯做出132900元的赔偿，就好像快递公司弄丢了快递而只赔偿快递费一样。但包裹里的“物品”究竟价值几何，现在行业内还没有一个公认的评判标准，很难说“前沿数据”千万元的赔偿要求是不是狮子大开口，也很难说“腾讯云”13万的赔偿是不是应付了事。</span></p><p style="margin-left:8px;text-align:justify;line-height:1.75em;"><span style="letter-spacing:1px;font-size:15px;"><br /></span></p><p style="margin-left:8px;text-align:justify;line-height:1.75em;"><span style="letter-spacing:1px;font-size:15px;">事实上，云宕机难免让用户蒙受损失，但是在业内人士看来，云服务出状况，大多数是偶然因素。地震、电缆被挖等，都可能引发类似事件。或许，以后买云服务，是不是也可以买个预防不可抗力的保险？</span></p><p style="margin-left:8px;text-align:justify;line-height:1.75em;"><span style="letter-spacing:1px;font-size:15px;"><br /></span></p><p style="margin-left:8px;text-align:justify;line-height:1.75em;"><span style="letter-spacing:1px;font-size:15px;">宕机状况频率高，难监测，不可控，损失大，对于此次赔付的争议，也许会催促提供云服务的企业建立一个行业标准，以更有效的应对突发状况。</span></p><span style="font-size:14px;">本文完</span><p><span style="color:rgb(192,0,0);">点击</span><span style="background-color:rgb(172,29,16);color:rgb(255,255,255);">“阅读原文”</span><span style="color:rgb(192,0,0);">获取更多热文哦～</span></p><p><br /></p><table cellspacing="1" cellpadding="1" bgcolor="#dddddd" style="width:378px;"><tbody><tr><td bgcolor="#FFFFFF"><strong><span style="font-size:14px;">MORE</span></strong><strong><span style="font-size:14px;">延伸阅读</span></strong><p style="line-height:2em;"><strong><span style="font-size:14px;">◐◑ <a href="http://mp.weixin.qq.com/s?__biz=MjM5NjE1MDcwMA==&amp;mid=2651891485&amp;idx=1&amp;sn=0f1ea0794866ca046c3c1e05aff68ba9&amp;chksm=bd09abde8a7e22c8e59cd832ef9ceb5d85cfab59551df02fe725d1a7d9eed459be4ed1be9760&amp;scene=21#wechat_redirect" rel="nofollow">星巴克牵手阿里，其实，早该如此了！</a></span></strong></p><p style="line-height:2em;"><strong><span style="font-size:14px;">◐◑ <a href="http://mp.weixin.qq.com/s?__biz=MjM5NjE1MDcwMA==&amp;mid=2651891485&amp;idx=2&amp;sn=77a6ebaa2dedeccf1cd7e0b086720980&amp;chksm=bd09abde8a7e22c8d275629c2f2474e6d8693bf573d6fbaf8fe93b0e7e6442a971419ee86e47&amp;scene=21#wechat_redirect" rel="nofollow">FF汽车更名姓“恒大”了，贾跃亭造车梦想照进现实？</a></span></strong></p><p style="line-height:2em;"><strong><span style="font-size:14px;">◐◑ <a href="http://mp.weixin.qq.com/s?__biz=MjM5NjE1MDcwMA==&amp;mid=2651891477&amp;idx=2&amp;sn=a914b8fefb2ad1e716c6fe31f3de865f&amp;chksm=bd09abd68a7e22c07f14261832b1b00182ee1ee6db2dd6acbe01ab3bc7e14c057aad414a90c2&amp;scene=21#wechat_redirect" rel="nofollow">苏宁正式上线短视频购物平台“头号买家”，到底是在急什么？</a></span></strong></p><p style="line-height:2em;"><strong><span style="font-size:14px;">◐◑ <a href="http://mp.weixin.qq.com/s?__biz=MjM5NjE1MDcwMA==&amp;mid=2651891428&amp;idx=2&amp;sn=f69bf7278b7f0100cc8a86cb5db4515d&amp;chksm=bd09aa278a7e23317fe349a5e1b82997c1059ac04210a924d18e24b7bb1edb38d442f764f1bf&amp;scene=21#wechat_redirect" rel="nofollow">科大讯飞竟然要上线酷音短视频平台？冲击抖音、快手？</a></span></strong></p></td></tr></tbody></table><p><img src="https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_gif/hGJIECJlyIGXvibO4HGzvo1KhvDQASheYUsbKWjTPlElXlJcgY0T7FapgjcGy2Y0pSOTicVBLgNJfXXYkd7GAz2Q/640" alt="640" /></p>
+                </div>
+              </div>
+                </div>
+				<div class="hide-article-box text-center">
+			<a class="btn btn-red-hollow" id="btn-readmore" data-track-view='{"mod":"popu_376","con":",https://blog.csdn.net/M7720EIoSi6oA9/article/details/81463841,"}' data-track-click='{"mod":"popu_376","con":",https://blog.csdn.net/M7720EIoSi6oA9/article/details/81463841,"}'>阅读更多</a>
+		</div>
+        	</article>
+	
+		<div class="article-bar-bottom">
+				<div class="article-copyright">
+			版权声明：本文为博主原创文章，未经博主允许不得转载。			https://blog.csdn.net/M7720EIoSi6oA9/article/details/81463841		</div>
+												<div class="tags-box hot-word">
+			<span class="label">相关热词：</span>
+						<a class="tag-link" href="https://blog.csdn.net/qq_40028729/article/details/79165247" target="_blank">
+			腾讯地			</a>
+						<a class="tag-link" href="https://blog.csdn.net/chen_fly2011/article/details/54895544" target="_blank">
+			tgw腾讯			</a>
+						<a class="tag-link" href="https://blog.csdn.net/qq_24369113/article/details/70432185" target="_blank">
+			到腾讯实习			</a>
+						<a class="tag-link" href="https://blog.csdn.net/songbinxu/article/details/79766087" target="_blank">
+			在腾讯实习			</a>
+						<a class="tag-link" href="https://blog.csdn.net/Duan_L/article/details/79233433" target="_blank">
+			前端腾讯			</a>
+					</div>
+			</div>
+			<!-- !empty($pre_next_article[0]) -->
+						<div class="related-article related-article-prev text-truncate">
+			<a href="https://blog.csdn.net/m7720eiosi6oa9/article/details/81463836">
+				<span>上一篇</span>内涵段子“借尸还魂”？化身皮皮虾重新上线应用商店....			</a>
+		</div>
+								<div class="related-article related-article-next text-truncate">
+			<a href="https://blog.csdn.net/m7720eiosi6oa9/article/details/81463843">
+				<span>下一篇</span>新零售风口下有多少泡沫？			</a>
+		</div>
+		</div>
+<script>
+    $(".MathJax").remove();
+</script>
+
+<!-- 博客详情页PC增加广告系统刷量代码 -->
+<div id="a52b5334d" style="width: 1px; height: 1px; display: none;">
+<script id="adJs52b5334"></script>
+<script>document.getElementById("adJs52b5334").src = "https://ads.csdn.net/js/opt/52b5334.js?t=" + Math.random();</script>
+</div>
+
+<script>
+	(function(){
+		var btnReadmore = $("#btn-readmore");
+		if(btnReadmore.length>0){
+			var winH = $(window).height();
+			var articleBox = $("div.article_content");
+			var artH = articleBox.height();
+			if(artH > winH*2){
+				articleBox.css({
+					'height':winH*2+'px',
+					'overflow':'hidden'
+				})
+				btnReadmore.click(function(){
+					articleBox.removeAttr("style");
+					$(this).parent().remove();
+				})
+			}else{
+				btnReadmore.parent().remove();
+			}
+		}
+	})()
+</script>
+        <div class="t0 clearfix">
+                                                <a href="https://blog.csdn.net/ak47mig/article/details/78603847" target="_blank" data-track-view='{"mod":"popu_642","con": ",https://blog.csdn.net/ak47mig/article/details/78603847,"}' data-track-click='{"mod":"popu_642","con": ",https://blog.csdn.net/ak47mig/article/details/78603847,"}'>
+                                                    <div class="text-content">
+                                                        <h4><em>腾讯</em>云默认操作系统被安装的软件</h4>
+                                                        <div class="description">1.云镜软件/usr/local/qcloud/YunJing/YDEyes/ 
+/usr/local/qcloud/YunJing/YDEyes/YDService 
+/usr/local/qclo...</div>
+                                                    </div>
+                                                </a>
+                                            </div>        <a id="commentBox"></a>
+<div class="comment-box">
+	  	<div class="unlogin-box text-center">
+		想对作者说点什么？
+		<!-- $curl 当前地址 -->
+		<a href="https://passport.csdn.net/account/login?from=https://blog.csdn.net/M7720EIoSi6oA9/article/details/81463841#commentBox" class="btn btn-sm btn-red">我来说一句</a>
+	</div>
+			<div class="comment-list-container">
+		<a id="comments"></a>
+		<div class="comment-list-box">
+		</div>
+		<div id="commentPage" class="pagination-box d-none"></div>
+		<div class="opt-box text-center">
+			<button class="btn btn-sm btn-link-blue" id="btnMoreComment"></button>
+		</div>
+	</div>
+</div>        <div class="recommend-box">
+            		<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/weixin_41167954/article/details/80117072,searchFromBaidu_1"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/weixin_41167954/article/details/80117072,searchFromBaidu_1"}'>
+		<div class="content">
+			<h4 class="text-truncate oneline">
+				<a href="https://blog.csdn.net/weixin_41167954/article/details/80117072" target="_blank" title="<em>腾讯</em><em>云服务</em>器ssh登录老是自动断开链接的解决办法">
+					<em>腾讯</em><em>云服务</em>器ssh登录老是自动断开链接的解决办法				</a>
+			</h4>
+			<div class="info-box d-flex align-content-center">
+				<p>
+					<a class="avatar" src="https://blog.csdn.net/weixin_41167954" target="_blank">
+						<img src="https://avatar.csdn.net/0/D/9/3_weixin_41167954.jpg" alt="weixin_41167954" class="avatar-pic">
+						<span class="namebox">
+							<span class="name">weixin_41167954</span>
+							<span class="triangle"></span>
+						</span>
+					</a>
+				</p>
+				<p class="date-and-readNum">
+					<span class="date hover-show">04-28</span>
+					<span class="read-num hover-hide">
+						<svg class="icon csdnc-yuedushu" aria-hidden="true">
+							<use xlink:href="#csdnc-yuedushu"></use>
+						</svg>
+						306</span>
+					</p>
+				</div>
+				<p class="content oneline">
+					<a class="oneline" href="https://blog.csdn.net/weixin_41167954/article/details/80117072" target="_blank" >
+						转载至 阿里云服务器ssh链接自动断开#vim /etc/ssh/sshd_config找到下面两行#ClientAliveInterval 0#ClientAliveCountMax 3去掉注释，改...					</a>
+				</p>
+		</div>
+				</div>
+					<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/zhy13087344578/article/details/77683121,searchFromBaidu_2"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/zhy13087344578/article/details/77683121,searchFromBaidu_2"}'>
+		<div class="content">
+			<h4 class="text-truncate oneline">
+				<a href="https://blog.csdn.net/zhy13087344578/article/details/77683121" target="_blank" title="微信小程序之使用<em>腾讯</em><em>云服务</em>器的一系列坑">
+					微信小程序之使用<em>腾讯</em><em>云服务</em>器的一系列坑				</a>
+			</h4>
+			<div class="info-box d-flex align-content-center">
+				<p>
+					<a class="avatar" src="https://blog.csdn.net/zhy13087344578" target="_blank">
+						<img src="https://avatar.csdn.net/B/1/5/3_zhy13087344578.jpg" alt="zhy13087344578" class="avatar-pic">
+						<span class="namebox">
+							<span class="name">zhy13087344578</span>
+							<span class="triangle"></span>
+						</span>
+					</a>
+				</p>
+				<p class="date-and-readNum">
+					<span class="date hover-show">08-29</span>
+					<span class="read-num hover-hide">
+						<svg class="icon csdnc-yuedushu" aria-hidden="true">
+							<use xlink:href="#csdnc-yuedushu"></use>
+						</svg>
+						1.5万</span>
+					</p>
+				</div>
+				<p class="content oneline">
+					<a class="oneline" href="https://blog.csdn.net/zhy13087344578/article/details/77683121" target="_blank" >
+						一、在微信公众平台的设置中，配置服务器信息 
+
+
+点击立即前往，购买服务器与域名，腾讯云有个优惠，前两个月只要3块钱。
+
+二、搭建vsftp服务器 
+FTP是文件传输协议 
+复制外网IP地址： 
+腾讯...					</a>
+				</p>
+		</div>
+				</div>
+														<div class="recommend-item-box recommend-ad-box">
+						<script type="text/javascript" src="//cee1.iteye.com/pkcgstjjm.js"></script>
+					</div>
+							
+				<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/qiu7qiu7/article/details/71697875,searchFromBaidu_4"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/qiu7qiu7/article/details/71697875,searchFromBaidu_4"}'>
+		<div class="content">
+			<h4 class="text-truncate oneline">
+				<a href="https://blog.csdn.net/qiu7qiu7/article/details/71697875" target="_blank" title="<em>腾讯</em><em>云服务</em>器涉及对外违规行为而被隔离的问题原因和解决方法">
+					<em>腾讯</em><em>云服务</em>器涉及对外违规行为而被隔离的问题原因和解决方法				</a>
+			</h4>
+			<div class="info-box d-flex align-content-center">
+				<p>
+					<a class="avatar" src="https://blog.csdn.net/qiu7qiu7" target="_blank">
+						<img src="https://avatar.csdn.net/5/6/F/3_qiu7qiu7.jpg" alt="qiu7qiu7" class="avatar-pic">
+						<span class="namebox">
+							<span class="name">qiu7qiu7</span>
+							<span class="triangle"></span>
+						</span>
+					</a>
+				</p>
+				<p class="date-and-readNum">
+					<span class="date hover-show">05-11</span>
+					<span class="read-num hover-hide">
+						<svg class="icon csdnc-yuedushu" aria-hidden="true">
+							<use xlink:href="#csdnc-yuedushu"></use>
+						</svg>
+						1390</span>
+					</p>
+				</div>
+				<p class="content oneline">
+					<a class="oneline" href="https://blog.csdn.net/qiu7qiu7/article/details/71697875" target="_blank" >
+						前几天突然收到腾讯云的短信和邮件，说我的服务器因为违规被隔离了，试了试，通过域名和外网IP均是无法连接到我的服务器，这让我着急了，百度了一圈得到的信息不多，但也解决了我的问题，下面总结如下：
+
+...					</a>
+				</p>
+		</div>
+				</div>
+					<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/logic_nut/article/details/5610859,BlogCommendFromQuerySearch_5"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/logic_nut/article/details/5610859,BlogCommendFromQuerySearch_5"}'>
+		<div class="content">
+			<h4 class="text-truncate oneline">
+				<a href="https://blog.csdn.net/logic_nut/article/details/5610859" target="_blank" title="刚把<em>腾讯</em>offer拒了～～">
+					刚把<em>腾讯</em>offer拒了～～				</a>
+			</h4>
+			<div class="info-box d-flex align-content-center">
+				<p>
+					<a class="avatar" src="https://blog.csdn.net/logic_nut" target="_blank">
+						<img src="https://avatar.csdn.net/B/1/1/3_logic_nut.jpg" alt="logic_nut" class="avatar-pic">
+						<span class="namebox">
+							<span class="name">logic_nut</span>
+							<span class="triangle"></span>
+						</span>
+					</a>
+				</p>
+				<p class="date-and-readNum">
+					<span class="date hover-show">05-20</span>
+					<span class="read-num hover-hide">
+						<svg class="icon csdnc-yuedushu" aria-hidden="true">
+							<use xlink:href="#csdnc-yuedushu"></use>
+						</svg>
+						3524</span>
+					</p>
+				</div>
+				<p class="content oneline">
+					<a class="oneline" href="https://blog.csdn.net/logic_nut/article/details/5610859" target="_blank" >
+						拒之前很坚决，毫不犹豫，拒之后心有余悸～～～					</a>
+				</p>
+		</div>
+				</div>
+					<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/guozhaohui628/article/details/80700712,BlogCommendFromQuerySearch_6"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/guozhaohui628/article/details/80700712,BlogCommendFromQuerySearch_6"}'>
+		<div class="content">
+			<h4 class="text-truncate oneline">
+				<a href="https://blog.csdn.net/guozhaohui628/article/details/80700712" target="_blank" title="阿里云<em>腾讯</em><em>云服务</em>器部署安装 Redis 【三部曲之二】">
+					阿里云<em>腾讯</em><em>云服务</em>器部署安装 Redis 【三部曲之二】				</a>
+			</h4>
+			<div class="info-box d-flex align-content-center">
+				<p>
+					<a class="avatar" src="https://blog.csdn.net/guozhaohui628" target="_blank">
+						<img src="https://avatar.csdn.net/3/9/E/3_guozhaohui628.jpg" alt="guozhaohui628" class="avatar-pic">
+						<span class="namebox">
+							<span class="name">guozhaohui628</span>
+							<span class="triangle"></span>
+						</span>
+					</a>
+				</p>
+				<p class="date-and-readNum">
+					<span class="date hover-show">06-15</span>
+					<span class="read-num hover-hide">
+						<svg class="icon csdnc-yuedushu" aria-hidden="true">
+							<use xlink:href="#csdnc-yuedushu"></use>
+						</svg>
+						125</span>
+					</p>
+				</div>
+				<p class="content oneline">
+					<a class="oneline" href="https://blog.csdn.net/guozhaohui628/article/details/80700712" target="_blank" >
+						1 安装包
+
+https://download.csdn.net/download/guozhaohui628/10479457 
+如果没有的直接下载我的吧。
+
+2 安装步骤
+
+
+
+2.1 配置安装环...					</a>
+				</p>
+		</div>
+				</div>
+						<div class="recommend-item-box recommend-download-box clearfix" data-track-view='{"mod":"popu_387","con":",https://download.csdn.net/download/yanyulong0/10411129,BlogCommendFromQuerySearch_7"}' data-track-click='{"mod":"popu_387","con":",https://download.csdn.net/download/yanyulong0/10411129,BlogCommendFromQuerySearch_7"}'>
+			<div class="content">
+				<h4 class="text-truncate oneline">
+					<a href="https://download.csdn.net/download/yanyulong0/10411129" target="_blank">
+						最新全国高校数据库信息（包含2854所高校）					</a>
+				</h4>
+				<p>
+					<span class="data">2018年05月13日 </span>
+					<span class="size">151KB</span>
+					<span class="type">下载</span>
+				</p>
+			</div>
+			<div class="img-box float-left">
+				<a href="https://download.csdn.net/download/yanyulong0/10411129" target="_blank" strategy="BlogCommendFromQuerySearch_7">
+					<img src="https://csdnimg.cn/release/download/old_static/images/minetype/zip.svg" alt="">
+				</a>
+			</div>
+		</div>
+								<div class="recommend-item-box recommend-ad-box" id="a_d_feed_0"></div>
+			<script>
+				var width = $("div.recommend-box").outerWidth() - 48;
+				NEWS_FEED({
+					w: width,
+					h: 60,
+					showid: 'Afihld',
+					placeholderId: 'a_d_feed_0',
+					inject: 'define',
+					define: {
+						imagePosition: 'left',
+						imageBorderRadius: 0,
+						imageWidth: 90,
+						imageHeight: 60,
+						imageFill: 'clip',
+						displayImage: true,
+						displayTitle: true,
+						titleFontSize: 20,
+						titleFontColor: '#333',
+						titleFontFamily: 'Microsoft Yahei',
+						titleFontWeight: 'bold',
+						titlePaddingTop: 0,
+						titlePaddingRight: 0,
+						titlePaddingBottom: 10,
+						titlePaddingLeft: 8,
+						displayDesc: true,
+						descFontSize: 14,
+						descPaddingLeft: 14,
+						descFontColor: '#6b6b6b',
+						descFontFamily: 'Microsoft Yahei',
+						paddingTop: 0,
+						paddingRight: 0,
+						paddingBottom: 0,
+						paddingLeft: 0,
+						backgroundColor: '#fff',
+						hoverColor: '#ca0c16'
+					}
+				})
+			</script>
+					<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/clbDream/article/details/78760070,BlogCommendFromQuerySearch_8"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/clbDream/article/details/78760070,BlogCommendFromQuerySearch_8"}'>
+		<div class="content">
+			<h4 class="text-truncate oneline">
+				<a href="https://blog.csdn.net/clbDream/article/details/78760070" target="_blank" title="<em>腾讯</em><em>Bug</em>管理——一种愉悦的开发方式">
+					<em>腾讯</em><em>Bug</em>管理——一种愉悦的开发方式				</a>
+			</h4>
+			<div class="info-box d-flex align-content-center">
+				<p>
+					<a class="avatar" src="https://blog.csdn.net/clbDream" target="_blank">
+						<img src="https://avatar.csdn.net/1/9/E/3_clbdream.jpg" alt="clbDream" class="avatar-pic">
+						<span class="namebox">
+							<span class="name">clbDream</span>
+							<span class="triangle"></span>
+						</span>
+					</a>
+				</p>
+				<p class="date-and-readNum">
+					<span class="date hover-show">12-09</span>
+					<span class="read-num hover-hide">
+						<svg class="icon csdnc-yuedushu" aria-hidden="true">
+							<use xlink:href="#csdnc-yuedushu"></use>
+						</svg>
+						822</span>
+					</p>
+				</div>
+				<p class="content oneline">
+					<a class="oneline" href="https://blog.csdn.net/clbDream/article/details/78760070" target="_blank" >
+						腾讯Bugly是腾讯为广大开发者提供的bug管理平台,通过集成腾讯bugly,可以很方便地找到程序中所出现的各种bug,并通过bug追踪对bug进行处理,不仅能够向开发者展示出所出现的bug类型,而且...					</a>
+				</p>
+		</div>
+						<div class="img-box float-left">
+				<a href="https://blog.csdn.net/clbDream/article/details/78760070">
+					<img src="https://csdnimg.cn/release/phoenix/article_rand_pic/engineering/engineering10.jpg" alt="">	
+				</a>
+			</div>
+			</div>
+						<div class="recommend-item-box recommend-download-box clearfix" data-track-view='{"mod":"popu_387","con":",https://download.csdn.net/download/qq_38716951/10286825,BlogCommendFromQuerySearch_9"}' data-track-click='{"mod":"popu_387","con":",https://download.csdn.net/download/qq_38716951/10286825,BlogCommendFromQuerySearch_9"}'>
+			<div class="content">
+				<h4 class="text-truncate oneline">
+					<a href="https://download.csdn.net/download/qq_38716951/10286825" target="_blank">
+						2018年最新全国1<em>万多</em>所大学<em>腾讯</em>坐标数据（最全的大学数据库）					</a>
+				</h4>
+				<p>
+					<span class="data">2018年03月14日 </span>
+					<span class="size">1011KB</span>
+					<span class="type">下载</span>
+				</p>
+			</div>
+			<div class="img-box float-left">
+				<a href="https://download.csdn.net/download/qq_38716951/10286825" target="_blank" strategy="BlogCommendFromQuerySearch_9">
+					<img src="https://csdnimg.cn/release/download/old_static/images/minetype/xlsx.svg" alt="">
+				</a>
+			</div>
+		</div>
+			
+            <div class="recommend-loading-box">
+                <img src='https://csdnimg.cn/release/phoenix/images/feedLoading.gif'>
+            </div>
+            <div class="recommend-end-box">
+                <p class="text-center">没有更多推荐了，<a href="https://blog.csdn.net/" class="c-blue c-blue-hover c-blue-focus">返回首页</a></p>
+            </div>
+        </div>
+    </main>
+    <aside>
+		    <div id="asideProfile" class="aside-box">
+    <h3 class="aside-title">个人资料</h3>
+    <div class="profile-intro d-flex">
+        <div class="avatar-box d-flex justify-content-center flex-column">
+            <a href="https://blog.csdn.net/M7720EIoSi6oA9">
+                <img src="https://avatar.csdn.net/7/F/5/3_m7720eiosi6oa9.jpg" class="avatar_pic">
+            </a>
+        </div>
+        <div class="user-info d-flex justify-content-center flex-column">
+            <p class="name csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                <a href="https://blog.csdn.net/M7720EIoSi6oA9" target="_blank" class="text-truncate" id="uid">比特网</a>
+            </p>
+                    </div>
+                <div class="opt-box d-flex justify-content-center flex-column">
+            <span  class="csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                                <a class="btn btn-sm btn-red-hollow" href="https://passport.csdn.net/account/login?from=https://blog.csdn.net/M7720EIoSi6oA9/article/details/81463841" target="_self">关注</a>
+                            </span>
+                    </div>
+            </div>
+    <div class="data-info d-flex item-tiling">
+                <dl class="text-center" title="611">
+                        <dt><a href="https://blog.csdn.net/m7720eiosi6oa9?t=1">原创</a></dt>
+            <dd><a href="https://blog.csdn.net/m7720eiosi6oa9?t=1"><span class="count">611</span></a></dd>
+                    </dl>
+        <dl class="text-center" title="85">
+            <dt>粉丝</dt>
+            <dd><span class="count" id="fan">85</span></dd>
+        </dl>
+        <dl class="text-center" title="107">
+            <dt>喜欢</dt>
+            <dd><span class="count">107</span></dd>
+        </dl>
+        <dl class="text-center" title="393">
+            <dt>评论</dt>
+            <dd><span class="count">393</span></dd>
+        </dl>
+    </div>
+    <div class="grade-box clearfix">
+        <dl>
+            <dt>等级：</dt>
+            <dd>
+                <a href="https://blog.csdn.net/home/help.html#level" title="6级,点击查看等级说明" target="_blank">
+                    <svg class="icon icon-level" aria-hidden="true">
+                        <use xlink:href="#csdnc-bloglevel-6"></use>
+                    </svg>
+                </a>
+            </dd>
+        </dl>
+        <dl>
+            <dt>访问：</dt>
+            <dd title="606377">
+                60万+            </dd>
+        </dl>
+        <dl>
+            <dt>积分：</dt>
+            <dd title="7760">
+                7760            </dd>
+        </dl>
+        <dl title="4107">
+            <dt>排名：</dt>
+            <dd>4107</dd>
+        </dl>
+    </div>
+        <div class="badge-box d-flex">
+        <span>勋章：</span>
+                        <a class="icon-badge" title="持之以恒">
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#csdnc-m-lasting"></use>
+            </svg>
+            <div class="icon-arrow"></div>
+            <div class="grade-detail-box item2">
+                <div class="pos-box">
+                    <div class="left-box d-flex justify-content-center align-items-center flex-column">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#csdnc-m-lasting"></use>
+                        </svg>
+                        <p>持之以恒</p>
+                    </div>
+                    <div class="right-box d-flex justify-content-center align-items-center">
+                        授予每个自然月内发布4篇或4篇以上原创或翻译IT博文的用户。不积跬步无以至千里，不积小流无以成江海，程序人生的精彩需要坚持不懈地积累！
+                    </div>
+                </div>
+            </div>
+        </a>
+                            </div>
+    </div>		    <div class="csdn-tracking-statistics mb8 box-shadow" data-pid="blog" data-mod="popu_4" style="height:250px;">
+    <div class="aside-content text-center" id="cpro_u2734133">
+      <!-- 广告位：PC-博客内页-百度联盟-300x250 -->
+                      <script type="text/javascript" src="//cee1.iteye.com/lgyyovfyh.js"></script>    </div>
+</div>
+		    <div id="asideNewArticle" class="aside-box">
+    <h3 class="aside-title">最新文章</h3>
+    <div class="aside-content">
+        <ul class="inf_list clearfix csdn-tracking-statistics tracking-click" data-mod="popu_382">
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/M7720EIoSi6oA9/article/details/81571526" target="_blank">腾讯或成蓝洞第二大股东，国服上线就能挽救吃鸡颓势？</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/M7720EIoSi6oA9/article/details/81571524" target="_blank">刷存在感的魅族16和三星Note9 谁能赢？</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/M7720EIoSi6oA9/article/details/81571523" target="_blank">华为Mate20电池容量曝光，比4000mAh更大</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/M7720EIoSi6oA9/article/details/81571516" target="_blank">11万用户等退押金，首例共享单车破产案折射哪些行业困局？</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/M7720EIoSi6oA9/article/details/81518423" target="_blank">淘宝京东集体上线“拼购”，能成功狙击拼多多吗？</a>
+            </li>
+                    </ul>
+    </div>
+</div>
+		    		    		    <div id="asideArchive" class="aside-box flexible-box">
+    <h3 class="aside-title">归档</h3>
+    <div class="aside-content">
+        <ul class="archive-list">
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/m7720eiosi6oa9/article/month/2018/08">
+                    2018年8月                    <span class="count float-right">26篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/m7720eiosi6oa9/article/month/2018/07">
+                    2018年7月                    <span class="count float-right">80篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/m7720eiosi6oa9/article/month/2018/06">
+                    2018年6月                    <span class="count float-right">84篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/m7720eiosi6oa9/article/month/2018/05">
+                    2018年5月                    <span class="count float-right">64篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/m7720eiosi6oa9/article/month/2018/04">
+                    2018年4月                    <span class="count float-right">150篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/m7720eiosi6oa9/article/month/2018/03">
+                    2018年3月                    <span class="count float-right">124篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/m7720eiosi6oa9/article/month/2018/02">
+                    2018年2月                    <span class="count float-right">104篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/m7720eiosi6oa9/article/month/2018/01">
+                    2018年1月                    <span class="count float-right">123篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/m7720eiosi6oa9/article/month/2017/12">
+                    2017年12月                    <span class="count float-right">114篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/m7720eiosi6oa9/article/month/2017/11">
+                    2017年11月                    <span class="count float-right">52篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/m7720eiosi6oa9/article/month/2017/10">
+                    2017年10月                    <span class="count float-right">41篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/m7720eiosi6oa9/article/month/2017/09">
+                    2017年9月                    <span class="count float-right">35篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/m7720eiosi6oa9/article/month/2017/08">
+                    2017年8月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/m7720eiosi6oa9/article/month/2017/07">
+                    2017年7月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/m7720eiosi6oa9/article/month/2017/06">
+                    2017年6月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/m7720eiosi6oa9/article/month/2017/05">
+                    2017年5月                    <span class="count float-right">3篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/m7720eiosi6oa9/article/month/2017/03">
+                    2017年3月                    <span class="count float-right">6篇</span>
+                </a>
+            </li>
+                    </ul>
+    </div>
+        <p class="text-center">
+        <a class="btn btn-link-blue flexible-btn" data-fbox="aside-archive">展开</a>
+    </p>
+    </div>
+		    <div id="asideHotArticle" class="aside-box">
+	<h3 class="aside-title">热门文章</h3>
+	<div class="aside-content">
+		<ul class="hotArticle-list csdn-tracking-statistics tracking-click" data-mod="popu_521">
+							<li>
+					<a href="https://blog.csdn.net/m7720eiosi6oa9/article/details/79072243">张小龙宣布微信重大改变！网友：是想让我们随时随地都加班吗？</a>
+					<p class="read">阅读量：<span>50378</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/m7720eiosi6oa9/article/details/79072244">今年春节新玩法:腾讯或推出黄金红包</a>
+					<p class="read">阅读量：<span>15686</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/m7720eiosi6oa9/article/details/80650038">还在荣耀10和v10中纠结，结果又来了荣耀play，这三款手机到底该怎么选？！</a>
+					<p class="read">阅读量：<span>12090</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/m7720eiosi6oa9/article/details/79765821">华为P20适不适合买？和小米Mix 2s一比就知道了！！</a>
+					<p class="read">阅读量：<span>9906</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/m7720eiosi6oa9/article/details/78955313">央行出手支付宝微信扫码限额500！真相了</a>
+					<p class="read">阅读量：<span>8286</span></p>
+				</li>
+					</ul>
+	</div>
+</div>
+		    <div id="asideNewComments" class="aside-box">
+    <h3 class="aside-title">最新评论</h3>
+    <div class="aside-content">
+        <ul class="newcomment-list">
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/m7720eiosi6oa9/article/details/81463843#comments">新零售风口下有多少泡沫？</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/atermiss" class="user-name" target="_blank">atermiss</a>：泡沫太多饿了                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/m7720eiosi6oa9/article/details/81463841#comments">腾讯云服务再出BUG,赔一千万多吗？</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/frf12" class="user-name" target="_blank">frf12</a>：一千万多不多我不知道。但13万显然少了，并缺少诚意                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/m7720eiosi6oa9/article/details/81463841#comments">腾讯云服务再出BUG,赔一千万多吗？</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/a1561386524" class="user-name" target="_blank">a1561386524</a>：13万对于数据来说有个毛用                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/m7720eiosi6oa9/article/details/81463843#comments">新零售风口下有多少泡沫？</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/qq_41598788" class="user-name" target="_blank">qq_41598788</a>：没浪花的花                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/m7720eiosi6oa9/article/details/81463841#comments">腾讯云服务再出BUG,赔一千万多吗？</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/ixhaos" class="user-name" target="_blank">ixhaos</a>：不要用一家公有云服务商的,定期导出数据到硬盘对的                </p>
+            </li>
+                    </ul>
+    </div>
+</div>
+		<div id="asideFooter">
+			
+		<div class="aside-box">
+						<script type="text/javascript" src="//cee1.iteye.com/avneunkwb.js"></script>
+					</div>
+				<div class="aside-box">
+			<div class="persion_article">
+			</div>
+		</div>
+	</div>
+</aside>
+<script src="https://csdnimg.cn/pubfooter/js/publib_footer-1.0.3.js" data-isfootertrack="false" type="text/javascript"></script>
+<script>
+	$("a.flexible-btn").click(function(){
+		$(this).parents('div.aside-box').removeClass('flexible-box');
+		$(this).remove();
+	})
+</script>
+</div>
+<div class="mask-dark"></div>
+<div class="pulllog-box" style="display: block;">
+	<div class="pulllog clearfix">
+		<span class="text float-left">
+			<!-- 广告位：PC-博客内页底通 文字链位置 -->
+			<script>
+			(function() {
+				var s = "_" + Math.random().toString(36).slice(2);
+				document.write('<div id="baidufooter_0001"></div>');
+				(window.slotbydup=window.slotbydup || []).push({
+					id: '5851901',
+					container: 'baidufooter_0001',
+					size: '520,40',
+					display: 'inlay-fix'
+				});
+			})();
+			</script>
+			<script src="https://dup.baidustatic.com/js/os.js"></script>
+			<style>
+				#baidufooter_0001{
+					display: none !important;
+				}
+			</style>
+		</span>
+		<div class="pulllog-btn float-right clearfix">
+            <button class="pulllog-login float-left csdn-tracking-statistics tracking-click" data-mod="popu_557">
+                登录
+            </button>
+            <div class="pulllog-sigin float-left csdn-tracking-statistics tracking-click" data-mod="popu_558">
+                <a href="https://passport.csdn.net/account/mobileregister" target="_blank">注册</a>
+            </div>
+            <button class="btn-close">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#csdnc-times"></use>
+                </svg>
+            </button>
+		</div>
+	</div>
+</div>
+<div id="loginWrap" style="display:none"></div>
+<div class="tool-box">
+	<ul class="meau-list">
+		<li>
+			<button class="btn-like " title="点赞">
+				<svg class="icon active" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup-ok"></use>
+				</svg><svg class="icon no-active" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup"></use>
+				</svg>
+				<p>5</p>
+			</button>
+		</li>
+		<li>
+			<a class="btn-comments" title="写评论" href="#commentBox">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-comments"></use>
+				</svg><br>写评论			</a>
+		</li>
+		<li class="toc-container-box" id="liTocBox">
+			<button class="btn-toc" title="目录">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-contents"></use>
+				</svg><br>目录
+			</button>
+			<div class="toc-container">
+				<div class="pos-box">
+					<div class="icon-arrow"></div>
+					<div class="scroll-box">
+						<div class="toc-box"></div>
+					</div>
+				</div>
+				<div class="opt-box">
+					<button class="btn-opt prev nomore" title="向上">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#csdnc-chevronup"></use>
+						</svg>
+					</button>
+					<button class="btn-opt next">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#csdnc-chevrondown"></use>
+						</svg>
+					</button>
+				</div>
+			</div>
+		</li>
+		<li>
+			<button class="btn-bookmark" title="收藏">
+				<svg class="icon active" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark-ok"></use>
+				</svg><svg class="icon no-active" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark"></use>
+				</svg><br>收藏
+			</button>
+		</li>
+				<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_weixin" data-cmd="weixin" title="微信分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-wechat"></use>
+				</svg><br>微信
+			</a>
+		</li>
+		<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_tsina" data-cmd="tsina" title="微博分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-weibo"></use>
+				</svg><br>微博
+			</a>
+		</li>
+		<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_qzone" data-cmd="qzone" title="QQ分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-qq"></use>
+				</svg><br>QQ
+			</a>
+		</li>
+					</ul>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'https://csdnimg.cn/static/api/js/share.js?v=89860594'];</script>
+<script>
+    var recommendCount = 8;
+    recommendCount = recommendCount > 1 ? (recommendCount + (recommendCount>6 ? 2 : 1)) : recommendCount;
+    var articleTit = "腾讯云服务再出BUG,赔一千万多吗？";
+    var ChannelId = 36;
+    var articleId = "81463841";
+    var commentscount = 9;
+    var islock = false;
+    var curentUrl = "https://blog.csdn.net/M7720EIoSi6oA9/article/details/81463841";
+    var myUrl = "https://my.csdn.net/";
+    //1禁止评论，2正常
+    var commentAuth = 0;
+    //百度搜索
+    var baiduKey = "%E6%89%8B%E6%9C%BAqq%E8%80%81%E6%98%AF%E8%87%AA%E5%8A%A8%E5%BC%B9%E5%87%BA%E8%85%BE%E8%AE%AF%E4%BA%91%E8%AE%A1%E7%AE%97%E6%9C%8D%E5%8A%A1";
+    var needInsertBaidu = true;
+    // 代码段样式
+    var codeStyle = '';
+    var highlight = ["\u817e\u8baf","\u4e91\u670d\u52a1","\u518d\u51fa","bug","\u4e00\u5343","\u4e07\u591a"];//高亮数组
+</script>
+<script src="https://csdnimg.cn/public/sandalstrap/1.3/js/sandalstrap.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.js"></script>
+<script src='https://csdnimg.cn/public/common/gotop/js/goTop-v1.0.min.js?v201803151422'></script>
+<script>
+    GoTop({
+        right: 8,
+        hasReport: true,
+        reportFun: function() {
+            showReport(false,"腾讯云服务再出BUG,赔一千万多吗？");
+        }
+    })
+</script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/common-a4f198c74c.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/detail-724d166897.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/themes/skin3-template/skin3-template-73eea35575.min.js"></script>
+<script src="https://csdnimg.cn/search/baidu_search-1.1.2.js?v=201802071056&autorun=true&install=true&keyword=%E6%89%8B%E6%9C%BAqq%E8%80%81%E6%98%AF%E8%87%AA%E5%8A%A8%E5%BC%B9%E5%87%BA%E8%85%BE%E8%AE%AF%E4%BA%91%E8%AE%A1%E7%AE%97%E6%9C%8D%E5%8A%A1"  type="text/javascript"></script>
+</body>
+<div class="box-box-aways">
+    <a class="btn-remove">
+        关闭
+    </a>
+    <div id="adAways">
+        <script>
+            (function() {
+            (window.slotbydup=window.slotbydup || []).push({
+            id: '5868728',
+            container: 'adAways',
+            size: '250,500',
+            display: 'inlay-fix'
+            });
+            })();
+            </script>
+        <script src="https://dup.baidustatic.com/js/os.js"></script>
+    </div>
+</div>
+<div class="box-box-default">
+    <a class="btn-remove">
+        关闭
+    </a>
+    <script type="text/javascript" src="//cee1.iteye.com/mhzzjepzz.js"></script>
+</div>
+<div class="box-box-large">
+    <a class="btn-remove">
+        关闭
+    </a>
+    <script type="text/javascript" src="//cee1.iteye.com/idvveasfs.js"></script>
+</div>
+<!-- 第四范式SDK -->
+
+<!-- 高亮未与 markdown兼容  -->
+	<link rel="stylesheet" href="https://csdnimg.cn/release/blog_editor_html/release1.3.1/ckeditor/plugins/chart/chart.css" />
+	<script type="text/javascript" src="https://csdnimg.cn/release/blog_editor_html/release1.3.1/ckeditor/plugins/chart/lib/chart.min.js"></script>
+	<script type="text/javascript" src="https://csdnimg.cn/release/blog_editor_html/release1.3.1/ckeditor/plugins/chart/widget2chart.js"></script>
+	<link rel="stylesheet" href="https://csdnimg.cn/release/blog_editor_html/release1.3.1/ckeditor/plugins/codesnippet/lib/highlight/styles/atom-one-dark.css">
+	<script type="text/javascript" src="https://csdnimg.cn/release/phoenix/production/pc_wap_common-93244aa03c.js" /></script>
+
+	<script type="text/javascript">
+	$(function(){
+		var allEscRegex = /&(lt|gt|amp|quot|nbsp|shy|#\d{1,5});/g,
+		    namedEntities = {
+					lt: '<',
+					gt: '>',
+					amp: '&',
+					quot: '"',
+					nbsp: '\u00a0',
+					shy: '\u00ad'
+				}
+		var allEscDecode = function( match, code ) {
+				return namedEntities[ code ];
+		};
+		htmlDecodeAttr = function( text ) {
+				return text.replace( allEscRegex, allEscDecode );
+		}
+	  hljs.initHighlightingOnLoad();
+	  hljs.initCopyButtonOnLoad();
+	  hljs.initLineNumbersOnLoad();
+		if($('pre .language-plain').length>0){
+			$('pre .language-plain').each(function(i,e){
+				var highlightRe = hljs.highlightAuto(htmlDecodeAttr(e.innerHTML))
+				e.innerHTML = highlightRe.value;
+				e.className = 'language-'+highlightRe.language;
+			});
+		}
+	})
+	</script>
+<script type="text/javascript" src="https://static-blog.csdn.net/mdeditor/public/res/bower-libs/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            "HTML-CSS": {
+                    linebreaks: { automatic: true, width: "94%container" },
+                    imageFont: null
+            },
+            tex2jax: {
+                preview: "none"
+            },
+            mml2jax: {
+                preview: 'none'
+            }
+    });
+</script>
+</html>
